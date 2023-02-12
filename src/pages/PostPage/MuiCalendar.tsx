@@ -11,33 +11,46 @@ import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
 import { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 import { Time } from './Atom';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
 
 export default function MaterialUIPickers() {
-    const [value, setValue] = React.useState(dayjs(Date()));
-    //dayjs('2014-08-18T21:11:54')
+  const [value, setValue] = React.useState(dayjs(Date()));
+  //dayjs('2014-08-18T21:11:54')
 
-    const [counter, setCounter] = useRecoilState(Time);
+  const [counter, setCounter] = useRecoilState(Time);
 
-    const handleChange = (newValue: any) => {
-        setValue(newValue);
-        setCounter(newValue);
-    };
+  const handleChange = (newValue: any) => {
+    setValue(newValue);
+    setCounter(newValue);
+  };
 
-    let valuable = Object.values(value);
-    let propsvalue = valuable[2];
-    // // let objecttostring = Object.entries(propsvalue);
-    // let objecttostring = JSON.stringify(propsvalue);
+  let valuable = Object.values(value);
+  let propsvalue = valuable[2];
+  // // let objecttostring = Object.entries(propsvalue);
+  // let objecttostring = JSON.stringify(propsvalue);
 
-    useEffect(() => {
-        console.log('value', valuable);
-        console.log('Atomvalue', valuable);
-        // handleChange(() => {});
-    });
+  useEffect(() => {
+    // console.log('value', valuable);
+    // console.log('Atomvalue', valuable);
+    // handleChange(() => {});
+    // const auth = getAuth();
+    // // console.log('auth:', auth);
+    // //파이어베이스로그인 유저정보확인
+    // onAuthStateChanged(auth, (user) => {
+    //   if (user) {
+    //     const uid = user.uid;
+    //     console.log('uid:', user.displayName);
+    //   } else {
+    //     alert('error');
+    //   }
+    // });
+    // //파이어베이스 코드 끝
+  });
 
-    return (
-        <LocalizationProvider dateAdapter={AdapterDayjs} valuable={valuable}>
-            <Stack spacing={3}>
-                {/* <DesktopDatePicker
+  return (
+    <LocalizationProvider dateAdapter={AdapterDayjs} valuable={valuable}>
+      <Stack spacing={3}>
+        {/* <DesktopDatePicker
                     label="Date desktop"
                     inputFormat="MM/DD/YYYY"
                     value={value}
@@ -57,13 +70,13 @@ export default function MaterialUIPickers() {
                     onChange={handleChange}
                     renderInput={(params) => <TextField {...params} />}
                 /> */}
-                <DateTimePicker
-                    label="Date&Time picker"
-                    value={value}
-                    onChange={handleChange}
-                    renderInput={(params) => <TextField {...params} />}
-                />
-            </Stack>
-        </LocalizationProvider>
-    );
+        <DateTimePicker
+          label="Date&Time picker"
+          value={value}
+          onChange={handleChange}
+          renderInput={(params) => <TextField {...params} />}
+        />
+      </Stack>
+    </LocalizationProvider>
+  );
 }
