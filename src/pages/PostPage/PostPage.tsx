@@ -103,12 +103,12 @@ const PostPage = () => {
   //작성완료//
   ///////////
   const handleSubmit = async () => {
-    setPostTime(timestring); //현재 시간
-    setPostHour(meeting); //약속 시간
-    setPostNickname(nickname);
-    setPostAuthor(user);
     try {
-      const docRef = await addDoc(collection(dbService, 'post'), {
+      setPostTime(timestring); //현재 시간
+      setPostHour(meeting); //약속 시간
+      setPostNickname(nickname);
+      setPostAuthor(user);
+      const docRef = await addDoc(collection(dbService, 'Post'), {
         Description_Posting: posttitel,
         Liked_Posting: false,
         Nickname: postNickname,
