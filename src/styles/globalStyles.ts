@@ -2,12 +2,14 @@ import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyle = createGlobalStyle`
     *{
-        margin: 0;
-        padding: 0;
+        margin: 0 ;
+        padding: 0 ;
+        
     }
 
     body{
-        
+
+
         font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
         'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
         sans-serif;
@@ -90,6 +92,8 @@ const GlobalStyle = createGlobalStyle`
     ::-webkit-scrollbar-track{
     background-color: #00ff0000; // 투명
     }
+
+   
 `;
 
 export default GlobalStyle;
