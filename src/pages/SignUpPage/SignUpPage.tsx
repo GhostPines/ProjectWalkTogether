@@ -72,7 +72,9 @@ const SignUpPage = () => {
     //유효성검사
     if (displayname.length > 0) {
       if (nicknameRegex.test(displayname) === false) {
-        setValidateDisplayname('한글,영문,숫자 포함 1자 이상 7자 이하로 작성해 주세요.');
+        setValidateDisplayname(
+          '한글,영문,숫자 포함 1자 이상 7자 이하로 작성해 주세요.'
+        );
         setValidateDisplayColor(false);
       } else {
         setValidateDisplayname('옳바른 형식의 닉네임 입니다.');
@@ -85,7 +87,12 @@ const SignUpPage = () => {
   const handleSubmitClick = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     //패스워드와 패스워드 확인이 일치하고 패스워드의 유효성 검사를 통과하고 닉네임을 작성해야만 로그인이 가능하다.
-    if (nicknameRegex.test(displayname) === true && password === confirmPwd && pwdRegex.test(password) === true && emailRegex.test(email) === true) {
+    if (
+      nicknameRegex.test(displayname) === true &&
+      password === confirmPwd &&
+      pwdRegex.test(password) === true &&
+      emailRegex.test(email) === true
+    ) {
       await createUserWithEmailAndPassword(authService, email, password)
         .then((result) => {
           updateProfile(result.user, {
@@ -104,7 +111,10 @@ const SignUpPage = () => {
         .catch((error) => {
           console.log(error);
 
-          if ((error = 'FirebaseError: Firebase: Error (auth/email-already-in-use).')) {
+          if (
+            (error =
+              'FirebaseError: Firebase: Error (auth/email-already-in-use).')
+          ) {
             alert('중복된 이메일 입니다. 새로운 이메일 주소를 입력해 주세요.');
           }
         });
@@ -126,7 +136,7 @@ const SignUpPage = () => {
       <form onSubmit={handleSubmitClick}>
         <InputBox>
           <Backbtn
-            type="button"
+            type='button'
             onClick={() => navigate('/login')}
             style={{
               border: 'none',
@@ -142,24 +152,74 @@ const SignUpPage = () => {
           </LoginLogo>
           <InputBoxContent>
             <Inputholder>
-              <Input type="text" name="닉네임" placeholder="닉네임" onChange={onChangeDisplayname}></Input>
-              <Validityfontbox>{<ValidityNicnamefont validateDisplaynameColor={validateDisplaynameColor}>{validateDisplayname}</ValidityNicnamefont>}</Validityfontbox>
+              <Input
+                type='text'
+                name='닉네임'
+                placeholder='닉네임'
+                onChange={onChangeDisplayname}
+              ></Input>
+              <Validityfontbox>
+                {
+                  <ValidityNicnamefont
+                    validateDisplaynameColor={validateDisplaynameColor}
+                  >
+                    {validateDisplayname}
+                  </ValidityNicnamefont>
+                }
+              </Validityfontbox>
             </Inputholder>
             <Inputholder>
-              <Input type="email" name="아이디" placeholder="아이디" onChange={onChangeEmail}></Input>
-              <Validityfontbox>{<ValidityEmailfont validateEmailColor={validateEmailColor}>{validateEmail}</ValidityEmailfont>}</Validityfontbox>
+              <Input
+                type='email'
+                name='아이디'
+                placeholder='아이디'
+                onChange={onChangeEmail}
+              ></Input>
+              <Validityfontbox>
+                {
+                  <ValidityEmailfont validateEmailColor={validateEmailColor}>
+                    {validateEmail}
+                  </ValidityEmailfont>
+                }
+              </Validityfontbox>
             </Inputholder>
             <Inputholder>
-              <Input type="password" name="비밀번호" placeholder="비밀번호" onChange={onChangePassword} value={password}></Input>
-              <Validityfontbox>{<ValidityPasswordfont validatePwColor={validatePwColor}>{validatePw}</ValidityPasswordfont>}</Validityfontbox>
+              <Input
+                type='password'
+                name='비밀번호'
+                placeholder='비밀번호'
+                onChange={onChangePassword}
+                value={password}
+              ></Input>
+              <Validityfontbox>
+                {
+                  <ValidityPasswordfont validatePwColor={validatePwColor}>
+                    {validatePw}
+                  </ValidityPasswordfont>
+                }
+              </Validityfontbox>
             </Inputholder>
             <Inputholder>
-              <Input value={confirmPwd} type="password" name="비밀번호 확인" placeholder="비밀번호 확인" onChange={onChangeconfirmPwd}></Input>
-              <Validityfontbox>{<ValidityConfirmPwdfont validatePwconfirmColor={validatePwconfirmColor}>{validatePwconfirm}</ValidityConfirmPwdfont>}</Validityfontbox>
+              <Input
+                value={confirmPwd}
+                type='password'
+                name='비밀번호 확인'
+                placeholder='비밀번호 확인'
+                onChange={onChangeconfirmPwd}
+              ></Input>
+              <Validityfontbox>
+                {
+                  <ValidityConfirmPwdfont
+                    validatePwconfirmColor={validatePwconfirmColor}
+                  >
+                    {validatePwconfirm}
+                  </ValidityConfirmPwdfont>
+                }
+              </Validityfontbox>
             </Inputholder>
           </InputBoxContent>
           <ButtonBox>
-            <LoginBtn type="submit">회원 가입</LoginBtn>
+            <LoginBtn type='submit'>회원 가입</LoginBtn>
           </ButtonBox>
         </InputBox>
       </form>
@@ -229,7 +289,7 @@ const LoginBtn = styled.button`
   width: 110px;
   height: 40px;
   font-size: 20px;
-  color: #orange;
+  color: orange;
   border-color: #2192ff;
   font-weight: 900;
   margin-top: 15px;

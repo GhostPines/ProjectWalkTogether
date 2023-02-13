@@ -17,7 +17,7 @@ import {
 import { useEffect } from 'react';
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
-import Review from './Review/Review';
+import Review from './ReviewList/Review';
 
 const Comments = () => {
   // 댓글 인풋
@@ -25,9 +25,7 @@ const Comments = () => {
   // 댓글 출력
   const [myComment, setMyComment] = useState<any[]>([]);
   // 댓글 수정
-  const [isModifying, setIsModifying] = useState<any[]>([]);
   const navigate = useNavigate();
-  const [isTextareaVisible, setIsTextareaVisible] = useState(false);
 
   // 댓글 생성
   const addCommentHandler = async (e: React.MouseEvent) => {
@@ -110,35 +108,6 @@ const Comments = () => {
     // 의존성 배열에는 PostingID_Posting가 들어가야된다.
   }, []);
 
-  // 댓글 삭제
-  const DeleteCommentHandler = async (documentId: any) => {
-    confirmAlert({
-      title: '정말 댓글을 삭제하시겠습니까?',
-      message: '삭제한 댓글은 되돌릴 수 없습니다.',
-      buttons: [
-        {
-          label: '네',
-          onClick: async () => {
-            await deleteDoc(doc(dbService, 'comments', documentId));
-          },
-        },
-        {
-          label: '아니오',
-          onClick: () => setMyComment,
-        },
-      ],
-    });
-  };
-
-  // 댓글 수정
-  const ModifiedCommentHandler = async (documentId: any) => {
-    await updateDoc(doc(dbService, 'comments', documentId), {
-      inputComment: setInputComment,
-      isEdit: false,
-    });
-    setIsTextareaVisible(true);
-  };
-
   return (
     <S.DetailCommentsWrapper>
       <S.CommentTitle>댓글</S.CommentTitle>
@@ -165,60 +134,14 @@ const Comments = () => {
       </S.DetailCommentContainer>
       {/* 리뷰 리스트 */}
       <S.CommentListWrapper>
-        {myComment.map((comment: any) => {
-          <Review />;
-          return (
-            <S.CommentList key={comment.id}>
-              {/* 현재 user가 쓴 글인지 판별 */}
-              {comment?.UID !== authService.currentUser?.uid ? (
-                <S.CommentLi>
-                  <S.CommentWrapper>
-                    <S.CommentProfileImg src={comment.ProfileImg} />
-                    <S.CommentUserName>{comment.NickName}</S.CommentUserName>
-                    <S.CommentBox>
-                      <S.CommentInput>
-                        {comment.Description_Comments}
-                      </S.CommentInput>
-                      <S.CommentDate>{comment.CreatedAt}</S.CommentDate>
-                    </S.CommentBox>
-                  </S.CommentWrapper>
-                </S.CommentLi>
-              ) : (
-                //현재 유저가 쓴 글이면 수정, 삭제 버튼까지 보여준다.
-                <S.CommentLi>
-                  <S.CommentProfileImg src={comment.ProfileImg} />
-                  <S.CommentWrapper>
-                    <S.CommentUserName>{comment.NickName}</S.CommentUserName>
-                    <S.CommentBox>
-                      {isTextareaVisible ? (
-                        <></>
-                      ) : (
-                        <S.CommentInput>
-                          {comment.Description_Comments}
-                        </S.CommentInput>
-                      )}
-                      <S.CommentContainer>
-                        <S.CommentDate>{comment.CreatedAt}</S.CommentDate>
-                        <S.CommentCancelDeleteBtnWrapper>
-                          <S.CommentEditBtn onClick={ModifiedCommentHandler}>
-                            수정하기
-                          </S.CommentEditBtn>
-                          <S.CommentDeleteBtn
-                            onClick={() => {
-                              DeleteCommentHandler(comment.documentId);
-                            }}
-                          >
-                            삭제하기
-                          </S.CommentDeleteBtn>
-                        </S.CommentCancelDeleteBtnWrapper>
-                      </S.CommentContainer>
-                    </S.CommentBox>
-                  </S.CommentWrapper>
-                </S.CommentLi>
-              )}
-            </S.CommentList>
-          );
-        })}
+        {myComment.map((comment: any) => (
+          <Review
+            comment={comment}
+            key={comment.id}
+            setMyComment={setMyComment}
+            setInputComment={setInputComment}
+          />
+        ))}
       </S.CommentListWrapper>
     </S.DetailCommentsWrapper>
   );
