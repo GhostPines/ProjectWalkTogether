@@ -10,34 +10,47 @@ import {
   where,
   orderBy,
   onSnapshot,
+  getDoc,
+  doc,
 } from 'firebase/firestore';
 import { dbService } from './../../common/firebase';
 
 const DetailPage = () => {
-  // post.id를 가져오는 부분(댓글과 똑같이 가져옴)
   const params = useRecoilValue(paramsState);
   console.log(params);
   const [getPostings, setGetPostings] = useState<any>([]);
 
+  const getPost = async () => {
+    const q = doc(dbService, 'Post', params);
+    const postData = await getDoc(q);
+    //비동기
+    setGetPostings(postData.data());
+  };
+
   useEffect(() => {
-    const q = query(
-      collection(dbService, 'Post'),
-      // Category_Posting이 파람스로 넘겨준 애들과 같은 애들만 뿌려줘라
-      where('params', '==', params)
-      // orderBy('CreatedAt', 'desc')
-    );
-    onSnapshot(q, (snapshot) => {
-      const getCategoryList = snapshot.docs.map((doc) => {
-        const CategoryList = {
-          id: doc.id,
-          ...doc.data(),
-        };
-        return CategoryList;
-      });
-      setGetPostings(getCategoryList);
-    });
+    getPost();
   }, []);
-  console.log('getPostings!!!', getPostings);
+
+  console.log(getPostings);
+  // useEffect(() => {
+  //   const q = query(
+  //     collection(dbService, 'Post'),
+  //     // Category_Posting이 파람스로 넘겨준 애들과 같은 애들만 뿌려줘라
+  //     where('params', '==', params)
+  //     // orderBy('CreatedAt', 'desc')
+  //   );
+  //   onSnapshot(q, (snapshot) => {
+  //     const getCategoryList = snapshot.docs.map((doc) => {
+  //       const CategoryList = {
+  //         id: doc.id,
+  //         ...doc.data(),
+  //       };
+  //       return CategoryList;
+  //     });
+  //     setGetPostings(getCategoryList);
+  //   });
+  // }, []);
+  // console.log('getPostings!!!', getPostings);
 
   return (
     <CommonStyles>
@@ -66,7 +79,6 @@ const DetailPage = () => {
         </S.BoxPhoto>
 
         <S.BoxMain>
-          <S.CalendarIcon src={'/assets/calendar.png'} />
           <S.CategoryTitle>카테고리</S.CategoryTitle>
           <S.InputTitle placeholder='제목을 입력해 주세요' />
           <S.Textarea placeholder='당신의 이야기를 적어주세요'></S.Textarea>

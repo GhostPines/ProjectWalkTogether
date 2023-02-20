@@ -192,7 +192,6 @@ export const Textarea = styled.textarea`
   /* transition: border-color 0.1s, background-color 0.1s; */
   resize: none;
   border: 1px solid #3d3a3a;
-
   &:focus {
     outline: 2px solid #6a24ff;
   }

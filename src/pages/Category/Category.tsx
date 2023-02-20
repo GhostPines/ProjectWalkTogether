@@ -18,6 +18,7 @@ const Category = () => {
   const { category } = useParams();
   const [postings, setPostings] = useState<any>([]);
   // console.log(category);
+  // console.log('postings', postings);
 
   useEffect(() => {
     const q = query(

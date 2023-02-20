@@ -46,7 +46,7 @@ const Comments = () => {
   };
 
   const newComments = {
-    params: params,
+    params,
     UID: authService.currentUser?.uid,
     // PostingID와 KeyForChat은 글쓰기에서 매개변수로 넘겨줘야된다.
     PostingID_Posting: '',
@@ -234,7 +234,7 @@ const Comments = () => {
       {/* 리뷰 리스트 */}
       <S.CommentListWrapper>
         {myComment.map((comment: any) => {
-          console.log('comment.isEdit:', comment.isEdit);
+          // console.log('comment.isEdit:', comment.isEdit);
           return (
             <S.CommentList key={comment.id}>
               {/* 현재 user가 쓴 글인지 판별 */}

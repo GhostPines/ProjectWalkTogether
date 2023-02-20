@@ -1,6 +1,13 @@
 import styled from 'styled-components';
 import { AiOutlineHeart } from 'react-icons/ai';
 
+export const CardGap = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  grid-gap: 74.5px;
+  grid-row-gap: 70px;
+  margin-top: 36px;
+`;
 export const CardBox = styled.div``;
 export const CardSectionWrapper = styled.a`
   cursor: pointer;
@@ -26,16 +33,9 @@ export const ListItemThumnail = styled.img`
   object-fit: cover;
   border-radius: 4px;
 `;
-export const ListItemThumnailTitle = styled.p`
-  /* height: 48px; */
-  margin: 8px 0px 0px 0px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  font-size: 16px;
-  font-weight: 600;
-  line-height: 19.97px;
-  letter-spacing: normal;
-  color: #212121;
+export const ListItemThumnailTitle = styled.img`
+  width: 1024px;
+  height: 293px;
 `;
 export const HashTag = styled.p`
   display: flex;

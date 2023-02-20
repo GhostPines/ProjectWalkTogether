@@ -12,11 +12,11 @@ export const CategoryImg = styled.img`
   // 해당 카테고리 사진 넣을곳인데 안될듯하다
 `;
 export const LikedListItem = styled.div`
-  display: flex;
+  /* display: flex;
   flex-wrap: wrap;
   grid-gap: 74.5px;
   grid-row-gap: 70px;
-  margin-top: 36px;
+  margin-top: 36px; */
 `;
 export const FilterArea = styled.div`
   /* margin-bottom: -26px; */
