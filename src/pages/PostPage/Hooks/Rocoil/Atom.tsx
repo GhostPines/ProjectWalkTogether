@@ -54,3 +54,8 @@ export const paramsState = atom<any>({
   key: 'paramsState',
   default: '',
 });
+
+export const chattingusers = atom<any>({
+  key: 'chattingusers',
+  default: '',
+});

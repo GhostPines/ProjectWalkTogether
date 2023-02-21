@@ -4,14 +4,24 @@ import CommonStyles from './../../styles/CommonStyles';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { paramsState } from './../PostPage/Hooks/Rocoil/Atom';
 import { useEffect, useState } from 'react';
-import { getDoc, doc } from 'firebase/firestore';
+import {
+  getDoc,
+  doc,
+  setDoc,
+  updateDoc,
+  addDoc,
+  collection,
+} from 'firebase/firestore';
 import { authService, dbService } from './../../common/firebase';
-import { useParams } from 'react-router-dom';
+import { Navigate, useNavigate, useParams } from 'react-router-dom';
 import { assert } from 'console';
 import DropdownCategory from '../../components/DropdownCategoryForWritePage/DropdownCategory';
 import DropBox from './DropBox/DropBox';
+import { chattingusers } from './../PostPage/Hooks/Rocoil/Atom';
+import React from 'react';
 
 const DetailPage = () => {
+  const navigate = useNavigate();
   // 아톰은 새로고침하면 초기화가 된다. 앱이 랜더링이 된다.
   // 리코일은 리덕스와 같아서 새로고침하면 날라간다.
   // const params = useRecoilValue(paramsState);
@@ -23,6 +33,44 @@ const DetailPage = () => {
   const [getPostings, setGetPostings] = useState<any>({});
   const [showBox, setShowBox] = useState<any>(false);
 
+  //채팅방룸 만들기 // 유저정보 생성및 업데이트
+  const [chattinguser, setChattinguse] = useRecoilState(chattingusers);
+  const [chattingusersinfo, setChattingusersinfo] = useState('');
+
+  // const chattingroom = chattinguser.combineId;
+  const getPostingUID = getPostings.UID;
+  const CurrentUid = chattinguser.CurrentUid;
+  const combineId: any =
+    getPostingUID > CurrentUid
+      ? getPostingUID + CurrentUid
+      : CurrentUid + getPostingUID;
+
+  React.useEffect(() => {
+    authService.onAuthStateChanged((user) => {
+      console.log(user);
+      if (user) {
+        const CurrentUid: any = authService.currentUser.uid;
+        const MyProfile = authService.currentUser.photoURL;
+        const MyNickname = authService.currentUser.displayName;
+        // const combineId =
+        //   getPostingUID > CurrentUid
+        //     ? getPostingUID + CurrentUid
+        //     : CurrentUid + getPostingUID;
+
+        const userinfo: any = {
+          // getPostingUID,
+          CurrentUid,
+          MyProfile,
+          MyNickname,
+          // combineId,
+        };
+        setChattinguse(() => userinfo);
+        console.log('getPostingUID', getPostingUID);
+      } else {
+      }
+    });
+  }, []);
+
   const getPost = async () => {
     const q = doc(dbService, 'Post', id);
     const postData = await getDoc(q);
@@ -33,11 +81,46 @@ const DetailPage = () => {
   useEffect(() => {
     getPost();
   }, []);
-  // console.log(getPostings);
+
   // getPostings 콘솔로그 찍어보면 post에 해당된 db확인 가능
-  // console.log(getPostings.UID);
-  console.log(getPostings);
-  console.log(authService.currentUser);
+
+  console.log('combineId:', combineId);
+  // console.log(authService.currentUser);
+  const date: any = Date();
+
+  const go = async () => {
+    alert('채팅창으로 이동합니다.');
+    navigate('/chat');
+    await setDoc(doc(dbService, 'Users', `${getPostingUID}`), {
+      nickname: chattinguser.MyNickname,
+      profileImg: chattinguser.MyProfile,
+      // chattingroom: [{ combineId, date }],
+    });
+    await setDoc(
+      doc(
+        dbService,
+        'Users',
+        `${getPostingUID}`,
+        'chattingroom',
+        `${combineId}`
+      ),
+      {
+        createdAT: date,
+      }
+    );
+    await setDoc(doc(dbService, 'Users', `${CurrentUid}`), {
+      nickname: chattinguser.MyNickname,
+      profileImg: chattinguser.MyProfile,
+      // chattingroom: [{ combineId, date }],
+    });
+    await setDoc(
+      doc(dbService, 'Users', `${CurrentUid}`, 'chattingroom', `${combineId}`),
+      {
+        createdAT: date,
+      }
+    );
+  };
+
   return (
     <>
       <CommonStyles>
@@ -68,7 +151,7 @@ const DetailPage = () => {
               </S.LikeWrapper>
               {/* 현재 user가 쓴 글인지 판별 */}
               {getPostings.UID !== authService.currentUser?.uid ? (
-                <S.WalktogetherBtn>
+                <S.WalktogetherBtn onClick={go}>
                   <S.WalktogetherTitle>함께 걸을래요</S.WalktogetherTitle>
                 </S.WalktogetherBtn>
               ) : (
@@ -97,7 +180,7 @@ const DetailPage = () => {
         <S.DetailLoactionWrapper>
           <S.DeatilLoactionTitle>장소는 이 곳이에요</S.DeatilLoactionTitle>
           <S.DetailLoactionContainer>
-            <S.LoactionMap src='/assets/mapimg.png' />
+            <S.LoactionMap src="/assets/mapimg.png" />
             <S.DetailAddressContainer>
               <S.DetailAddressIcon />
               <S.DetailAddressBox>

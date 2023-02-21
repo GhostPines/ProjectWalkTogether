@@ -28,13 +28,6 @@ export const ChattingNickname = styled.div`
   /* background-color: blue; */
   border-bottom: 1px solid #bec5d7;
 `;
-export const ChattingContent = styled.div`
-  height: 460px;
-  width: 566px;
-  /* border-right: 1px solid #bec5d7; */
-  border-bottom: 1px solid #bec5d7;
-  /* background-color: blue; */
-`;
 
 export const ChattingNicknamePhoto = styled.div`
   width: 24px;
@@ -132,4 +125,71 @@ export const ChattingButton = styled.button`
   flex: none;
   order: 1;
   flex-grow: 0;
+`;
+
+//채팅 최상위 박스
+export const ChattingContent = styled.div`
+  height: 460px;
+  width: 566px;
+  /* border-right: 1px solid #bec5d7; */
+  border-bottom: 1px solid #bec5d7;
+  color: rgba(125, 139, 174, 1);
+  overflow-y: auto;
+  //왼쪽에 채팅창뜨게하는 3종세트
+  display: flex; // 그러므로 내림차순으로 가져오면 가장 나중에 쓴 글이 최하단에 위치 하지 않을까?
+  flex-direction: column-reverse; //값을 가져올때 오름차순=> 가장 먼저쓴 글이 최하단에 위치한다
+`;
+
+//오른쪽
+export const ChattingTextBox = styled.div`
+  display: flex;
+  flex-direction: row-reverse;
+`;
+
+export const ChattingTime = styled.div`
+  font-size: 10px;
+  display: flex;
+  flex-direction: column-reverse;
+  position: relative;
+  bottom: 10px;
+  /* background-color: blue; */
+`;
+
+// 채팅 내용
+export const ChattingText = styled.div`
+  max-width: 430px;
+  border: 1px solid #bec5d7;
+  margin: 12px;
+  border-radius: 4px;
+  padding: 10px;
+  font-size: 12px;
+  display: inline-block;
+  /* position: relative;
+  left: 100px; */
+  text-align: left;
+`;
+
+//왼쪽
+export const ChattingTextBoxLeft = styled.div`
+  display: flex;
+`;
+
+export const ChattingTextLeft = styled.div`
+  max-width: 430px;
+  border: 1px solid #bec5d7;
+  margin: 12px;
+  border-radius: 4px;
+  padding: 10px;
+  font-size: 12px;
+  display: inline-block;
+
+  text-align: left;
+`;
+
+export const ChattingImg = styled.div`
+  position: relative;
+  width: 24px;
+  height: 24px;
+  background-color: black;
+  margin: 12px 0px 12px 12px;
 `;

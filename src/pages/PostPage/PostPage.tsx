@@ -40,7 +40,7 @@ const PostPage = () => {
   const [postId, setPostId] = useState(''); //포스팅 id 고유값
   const [postAuthor, setPostAuthor] = useState(''); //사용자 파이어베이스 uid
   const [postNickname, setPostNickname] = useState(''); //사용자 닉네임 => 회원가입시시에 저장해 주거나 로컬에 저장하는 방법을 찾아야될 것 같다.
-  const [postAddress, setPostAddress] = useState(''); //만날 위치 시,군,구,단
+  // const [postAddress, setPostAddress] = useState(''); //만날 위치 시,군,구,단
   const [postCategory, setPostCategory] = useState('카테고리'); //카테고리
 
   //주소 받아오기 myLocation
