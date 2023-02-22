@@ -1,7 +1,15 @@
 import React from 'react';
 import * as S from './LoginPage.style';
 import { useState } from 'react';
-import { signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, FacebookAuthProvider, setPersistence, browserSessionPersistence } from 'firebase/auth';
+import {
+  signInWithEmailAndPassword,
+  signInWithPopup,
+  GoogleAuthProvider,
+  FacebookAuthProvider,
+  setPersistence,
+  browserSessionPersistence,
+  getAuth,
+} from 'firebase/auth';
 import { doc, setDoc } from '@firebase/firestore';
 import { useNavigate } from 'react-router-dom';
 import { dbService, authService } from '../../common/firebase';
@@ -85,18 +93,27 @@ const LoginPage = () => {
 
   //소셜로그인 구글
   const signInWithGoogle = () => {
-    const provider = new GoogleAuthProvider();
-    signInWithPopup(authService, provider)
-      .then((res) => {
-        navigate('/');
-        setDoc(doc(dbService, 'user', res.user.uid), {
-          uid: res.user.uid,
-          email: res.user.email,
-          nickname: res.user.displayName,
-          profileImg: res.user.photoURL,
+    setPersistence(authService, browserSessionPersistence)
+      .then(() => {
+        const provider = new GoogleAuthProvider();
+        const auth = getAuth();
+        return signInWithPopup(authService, provider).then((res) => {
+          setPersistence(auth, browserSessionPersistence);
+          navigate('/');
+          setDoc(doc(dbService, 'user', res.user.uid), {
+            uid: res.user.uid,
+            email: res.user.email,
+            nickname: res.user.displayName,
+            profileImg: res.user.photoURL,
+            introduce: '',
+          });
         });
       })
-      .catch(console.error);
+      .catch((error) => {
+        // Handle Errors here.
+        const errorCode = error.code;
+        const errorMessage = error.message;
+      });
   };
 
   return (
@@ -110,14 +127,24 @@ const LoginPage = () => {
                 <h1>같이 걸을래?</h1>
               </S.LoginLogo>
               <S.Inputholder>
-                <S.Input type="email" name="아이디" placeholder="이메일을 입력해주세요" onChange={onChangeEmail}></S.Input>
+                <S.Input
+                  type='email'
+                  name='아이디'
+                  placeholder='이메일을 입력해주세요'
+                  onChange={onChangeEmail}
+                ></S.Input>
               </S.Inputholder>
               <S.Inputholder>
-                <S.Input type="password" name="비밀번호" placeholder="비밀번호를 입력해주세요" onChange={onChangePassword}></S.Input>
+                <S.Input
+                  type='password'
+                  name='비밀번호'
+                  placeholder='비밀번호를 입력해주세요'
+                  onChange={onChangePassword}
+                ></S.Input>
               </S.Inputholder>
 
               <S.ButtonBox>
-                <S.LoginBtn type="submit">로그인</S.LoginBtn>
+                <S.LoginBtn type='submit'>로그인</S.LoginBtn>
               </S.ButtonBox>
               <S.LineBox>
                 <S.Line />
@@ -126,12 +153,18 @@ const LoginPage = () => {
               </S.LineBox>
 
               <S.SocialBox>
-                <S.Facebook onClick={signInWithFacebook} src="/assets/facebook.png" />
-                <S.Google onClick={signInWithGoogle} src="assets/google.png" />
+                <S.Facebook
+                  onClick={signInWithFacebook}
+                  src='/assets/facebook.png'
+                />
+                <S.Google onClick={signInWithGoogle} src='assets/google.png' />
                 <KakaoLoginButton />
               </S.SocialBox>
               <S.ThirdBox>
-                <S.RegisterBtn type="button" onClick={() => navigate('/signup')}>
+                <S.RegisterBtn
+                  type='button'
+                  onClick={() => navigate('/signup')}
+                >
                   회원 가입
                 </S.RegisterBtn>
                 <S.FindBox>
@@ -142,7 +175,11 @@ const LoginPage = () => {
           </S.InputBox>
         </form>
 
-        <PassModal open={loginModalopen} setLoginModalopen={setLoginModalopen} onClose={() => setLoginModalopen(false)} />
+        <PassModal
+          open={loginModalopen}
+          setLoginModalopen={setLoginModalopen}
+          onClose={() => setLoginModalopen(false)}
+        />
       </S.InputLayout>
     </CommonStyles>
   );

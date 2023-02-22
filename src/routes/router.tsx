@@ -11,6 +11,7 @@ import PostPage from '../pages/PostPage/PostPage';
 import DetailPage from '../pages/DetailPage/DetailPage';
 import ChattingPage from '../pages/ChatPage/ChattingPage';
 import Category from './../pages/Category/Category';
+import MyPage2 from '../pages/MyPage/MyPage2';
 
 const Router = () => {
   return (
@@ -21,7 +22,7 @@ const Router = () => {
         <Route path='/login' element={<LoginPage />} />
         <Route path='/signup' element={<SignUpPage />} />
         <Route path='/map' element={<MapPage />} />
-        <Route path='/mypage' element={<MyPage />} />
+        <Route path='/mypage' element={<MyPage2 />} />
         <Route path='/postpage' element={<PostPage />} />
         <Route path='/category/:category' element={<Category />} />
         <Route path='/detailpage/:id' element={<DetailPage />} />

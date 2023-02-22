@@ -54,3 +54,11 @@ export const paramsState = atom<any>({
   key: 'paramsState',
   default: '',
 });
+export const userProfileImg = atom<any>({
+  key: 'userProfileImg',
+  default: '',
+});
+export const userProfileBannerImg = atom<any>({
+  key: 'userProfileBannerImg',
+  default: '',
+});
