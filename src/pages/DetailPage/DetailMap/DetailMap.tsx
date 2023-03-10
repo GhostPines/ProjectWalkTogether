@@ -1,31 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
-import * as ReactDOMServer from 'react-dom/server';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { paramsState } from '../../../Rocoil/Atom';
 import { useSetRecoilState } from 'recoil';
 
-import { useRecoilState, useRecoilValue } from 'recoil';
-
-import {
-  AiOutlineSearch,
-  AiOutlinePlus,
-  AiOutlineMinus,
-  AiOutlineEnvironment,
-  AiOutlineCar,
-} from 'react-icons/ai';
-import { RxDividerVertical } from 'react-icons/rx';
-import { IoMdClose } from 'react-icons/io';
-
-// import { dbState } from '../../../store/selector'
-
 import * as S from './DetailMap.style';
 
-import {
-  Map,
-  MapMarker,
-  ZoomControl,
-  MapTypeControl,
-} from 'react-kakao-maps-sdk';
+import { Map, MapMarker } from 'react-kakao-maps-sdk';
 
 interface Props {
   getPostings: any;

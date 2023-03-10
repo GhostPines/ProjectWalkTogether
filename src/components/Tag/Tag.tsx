@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 import { NewpostTag } from '../../Rocoil/Atom';
+import * as S from './Tag.style';
 
 const Tag = (props: { tagItem: string }) => {
   const Tag = props.tagItem;
@@ -45,17 +46,17 @@ const Tag = (props: { tagItem: string }) => {
   //보여줄때는 props로받아온걸로
 
   return (
-    <WholeBox>
-      <TagBox>
+    <S.WholeBox>
+      <S.TagBox>
         {tagList.map((tagItem, index) => {
           return (
-            <TagItem key={index}>
-              <Text>{'#' + tagItem}</Text>
-              <Button onClick={() => deleteClick(index)}>X</Button>
-            </TagItem>
+            <S.TagItem key={index}>
+              <S.Text>{'#' + tagItem}</S.Text>
+              <S.Button onClick={() => deleteClick(index)}>X</S.Button>
+            </S.TagItem>
           );
         })}
-        <TagInput
+        <S.TagInput
           maxLength={6}
           type='text'
           placeholder={isInputClicked === true ? '' : '해쉬태그를 입력해주세요'}
@@ -64,68 +65,9 @@ const Tag = (props: { tagItem: string }) => {
           value={tagItem}
           onKeyPress={onKeyPress}
         />
-      </TagBox>
-    </WholeBox>
+      </S.TagBox>
+    </S.WholeBox>
   );
 };
-
-const WholeBox = styled.div`
-  /* height: 100vh; */
-`;
-
-const TagBox = styled.div`
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  width: 84%;
-  margin-bottom: 10px;
-`;
-
-const TagItem = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 4px;
-  margin-right: 4px;
-  background-color: #8ca6bc;
-  border-radius: 5px;
-  color: white;
-  font-size: 10px;
-`;
-
-const Text = styled.span``;
-
-const Button = styled.button`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 11px;
-  height: 11px;
-  margin-left: 5px;
-  background-color: white;
-  border-radius: 50%;
-  color: #c7d5ff;
-  font-size: 11px;
-`;
-
-const TagInput = styled.input`
-  display: inline-flex;
-  min-width: 200px;
-  background: transparent;
-  border: none;
-  outline: none;
-  cursor: text;
-  font-size: 16px;
-  font-family: 'SUITERegular';
-
-  &::placeholder {
-    font-family: 'SUIT';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 20px;
-    color: #7d8bae;
-  }
-`;
 
 export default Tag;

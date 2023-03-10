@@ -1,22 +1,12 @@
-import React from 'react';
 import * as S from './Category.style';
-import { useEffect, useState } from 'react';
-import { useParams, useLocation } from 'react-router-dom';
-import {
-  query,
-  collection,
-  where,
-  orderBy,
-  getDocs,
-  onSnapshot,
-} from 'firebase/firestore';
-import { dbService } from '../../common/firebase';
+import { useState } from 'react';
+import { useParams } from 'react-router-dom';
 import CardSection from '../../components/CardSection/CardSection';
 import CommonStyles from '../../styles/CommonStyles';
 import DropdownFilterCategory from './../../components/DropdownFilterCategory/DropdownFilterCategory';
 import AntCalendarMap from './Calendar/AntCalendarDate';
-import { Cetegory, FilterSelectedDate } from '../../Rocoil/Atom';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { FilterSelectedDate } from '../../Rocoil/Atom';
+import { useRecoilState } from 'recoil';
 
 import { CategorysList } from '../../utils/CategorysList';
 import { Post, usePosts } from '../../api/postsApi';
@@ -71,10 +61,6 @@ const Category = () => {
   const month = meetDate.$M + 1;
 
   const SelectedDate = `${month}/${d} ${date(y, m, d)}`;
-  // const SelectedDate = `${todayMonth}/${meetDaynum}`;
-
-  // 내가 필터 달력 클릭한 값이 잘 넘어온다.
-  // console.log('SelectedDate', SelectedDate);
 
   // FilterDate는 DoubleFilterDate를 위해 쓰는 코드이다.
   const FilteredDate =

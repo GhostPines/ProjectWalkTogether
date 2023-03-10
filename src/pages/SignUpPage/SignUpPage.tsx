@@ -70,9 +70,11 @@ const SignUpPage = () => {
   const deletenameinput = () => {
     setDisplayname('');
   };
+
   const deletemailinput = () => {
     setEmail('');
   };
+
   const deleteCnfirminput = () => {
     setCnfirmPwd('');
   };
@@ -215,6 +217,7 @@ const SignUpPage = () => {
               'https://firebasestorage.googleapis.com/v0/b/oh-ju-79642.appspot.com/o/profile%2Fblank_profile.png?alt=media&token=0053da71-f478-44a7-ae13-320539bdf641',
             bannerImg: '',
             introduce: '',
+
           })
             .then(() => {
               if (authService.currentUser !== null) {
@@ -317,6 +320,7 @@ const SignUpPage = () => {
                 {email && (
                   <S.CheckBox>
                     <S.DeleteEmailCheckBtn onClick={deletemailinput}>
+
                       <S.CheckIconright
                         src={
                           require('../../assets/ChattingIcon/clearbtn.svg')
@@ -355,6 +359,7 @@ const SignUpPage = () => {
                   <S.CheckPasswordBox>
                     {passinputType === 'password' ? (
                       <S.CheckPassWordBtn onClick={handleToggleInputType}>
+
                         <S.CheckIconright
                           src={
                             require('../../assets/LoginPage/No-eye.svg').default
@@ -362,6 +367,7 @@ const SignUpPage = () => {
                           alt='Show password'
                         />
                       </S.CheckPassWordBtn>
+
                     ) : (
                       <S.OpenCheckBtn onClick={handleToggleInputType}>
                         <S.Checkeye
@@ -384,6 +390,7 @@ const SignUpPage = () => {
                       />
                     </S.DeletePassCheckBtn>
                   </S.CheckPasswordBox>
+
                 )}
               </S.Inputholder>
 
@@ -411,6 +418,7 @@ const SignUpPage = () => {
 
                 {confirmPwd && (
                   <S.CheckPasswordBox>
+
                     {ConfirmPassInputType === 'password' ? (
                       <S.CheckPassBtn onClick={handleToggleConfirmInputType}>
                         <S.CheckIconright

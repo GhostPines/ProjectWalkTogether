@@ -1,5 +1,4 @@
 import { deleteUser, getAuth } from 'firebase/auth';
-import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import * as S from './MypageDropBox.style';
 import MessageWindow, {
@@ -44,12 +43,6 @@ const MypageDropBox = () => {
     );
   };
 
-  // if (window.confirm('탈퇴하실건가요?')) {
-  //   deleteUser(getAuth().currentUser).then(() => {
-  //     alert('탈퇴가 완료 되었습니다.');
-  //     navigate('/');
-  //   });
-  // }
   return (
     <>
       <S.DropBoxWrapper>

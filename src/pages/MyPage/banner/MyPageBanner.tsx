@@ -1,5 +1,4 @@
-import { async } from '@firebase/util';
-import { doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
+import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
@@ -8,23 +7,16 @@ import { storage } from '../../../common/firebase';
 import { dbService, authService } from '../../../common/firebase';
 import { currentUserUid } from '../../../Rocoil/Atom';
 
-const MyPageBanner = (props: { uid: string }) => {
-  const uid = props.uid;
+interface Props {
+  userInfo: any;
+}
+
+const MyPageBanner = ({ userInfo }: Props) => {
+  const { uid, bannerImg } = userInfo;
+
   const userUID = useRecoilValue(currentUserUid);
 
   const [imageURL, setImageURL] = useState<string>('');
-  useEffect(() => {
-    getImageURL();
-  }, []);
-
-  const getImageURL = async () => {
-    console.log(uid);
-
-    const docRef = doc(dbService, 'user', uid);
-    const docSnap = await getDoc(docRef);
-
-    setImageURL(docSnap.data().bannerImg);
-  };
 
   const onImageChange = (
     e: React.ChangeEvent<EventTarget & HTMLInputElement>

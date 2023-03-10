@@ -16,16 +16,11 @@ const AntCalendarMap: React.FC = () => {
   const [filterSelectedDate, setfilterSelectedDate] =
     useRecoilState<any>(FilterSelectedDate);
 
-  // const [Date, setDate] = useRecoilState<any>(FilterDate);
-
   const onChange: DatePickerProps['onChange'] = (date, dateString) => {
-    // console.log('dateString', dateString);
-    // console.log('date', date);
     setfilterSelectedDate(date);
 
     console.log(filterSelectedDate);
   };
-  // console.log('filterSelectedDate', filterSelectedDate);
 
   return (
     <ConfigProvider locale={locale}>

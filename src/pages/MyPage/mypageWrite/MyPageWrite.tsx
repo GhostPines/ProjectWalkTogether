@@ -2,11 +2,11 @@ import CardSection from '../../../components/CardSection/CardSection';
 import * as S from './MypageWrite.style';
 import { Post, usePosts } from '../../../api/postsApi';
 
-const MyPageWrite = (props: { uid: string }) => {
-  const { uid } = props;
-
+const MyPageWrite = (userInfo: any) => {
   const { posts, refetch } = usePosts();
-  const filteredPosts: Array<Post> = posts.filter((post) => post.UID === uid);
+  const filteredPosts: Array<Post> = posts.filter(
+    (post) => post.UID === userInfo.uid
+  );
 
   return (
     <S.MyPageWriteWrap>

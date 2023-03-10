@@ -1,4 +1,5 @@
 import styled, { keyframes } from 'styled-components';
+
 export const CardBox = styled.div`
   width: 180px;
   height: 207px;

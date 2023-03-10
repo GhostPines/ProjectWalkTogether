@@ -14,21 +14,19 @@ const DropdownFilterCategory = ({
   setTextChange,
   TextChange,
 }: SetProps) => {
+  const navigate = useNavigate();
+
+  // 카테고리 선택 시 이너 텍스트 바뀌는 부분
   const buttonClickHandler = (event: any) => {
-    //바로 적용이 안된다
-    // setTextChange(event.target.innerText);
-    // 아래부분처럼 해결함
     setTextChange(event.target.innerText);
   };
 
-  const navigate = useNavigate();
-
+  // 카테고리 선택 시 해당 카테고리로 이동
   const confirmButtonClickHandler = () => {
     navigate('/category/' + TextChange);
     setShow(false);
   };
 
-  // console.log(CategorysList);
   return (
     <S.DropdownBox>
       <S.DropdownConatainer>
@@ -41,10 +39,7 @@ const DropdownFilterCategory = ({
             );
           })}
         </S.DropdownWapper>
-        <S.CategoryConfirmBtn
-          // 24~25
-          onClick={() => confirmButtonClickHandler()}
-        >
+        <S.CategoryConfirmBtn onClick={() => confirmButtonClickHandler()}>
           선택 완료
         </S.CategoryConfirmBtn>
       </S.DropdownConatainer>

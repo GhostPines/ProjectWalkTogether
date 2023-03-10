@@ -39,7 +39,6 @@ export default function AuthStateListener() {
   const setUserForChat = useSetRecoilState(userForChat);
 
   const cacheDataToUserDatabase = async (
-    // kakaoId: string,
     uid: string,
     email: string,
 
@@ -68,14 +67,6 @@ export default function AuthStateListener() {
     }
   };
 
-  // await setDoc(doc(dbService, 'kakaoData', `${kakaoId}`), {
-  //   login: true,
-  //   name: nickname,
-  //   date: connectedAt,
-  //   email: email,
-  //   image: image,
-  // });
-
   // 최상위에 있는 이유
   //
   // onAuthStateChanged = 옵저버
@@ -94,7 +85,6 @@ export default function AuthStateListener() {
         // User is logged in
         console.log(user);
 
-        // alert('로그인되었습니다. -알레한드로');
         const useruid = user.uid;
         const myporfile = user.photoURL;
         const mynickname = user.displayName;
@@ -120,7 +110,6 @@ export default function AuthStateListener() {
         );
       } else {
         // User is logged out
-        // alert('로그아웃되었습니다. 안녕히 잘가세요ㅋ -알레한드로');
         setIsLoggedIn(false);
         setCurrentUserUid('');
         // setCurrentKakaoId('');

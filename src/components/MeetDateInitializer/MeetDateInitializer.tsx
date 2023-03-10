@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 import { FilterSelectedDate } from '../../Rocoil/Atom';
 import { useLocation } from 'react-router-dom';

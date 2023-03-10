@@ -12,7 +12,6 @@ const GlobalStyle = createGlobalStyle`
 
 
     body{
-        
         font-family: 'SUITEBold','SUITERegular','SUITESemiBold', 'Segoe UI', 'Roboto', 'Oxygen',
         'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
         sans-serif;
@@ -45,8 +44,11 @@ const GlobalStyle = createGlobalStyle`
         color: #202020;
         font-size: 16px;
         line-height: 1.7;
-    }
 
+    }
+/* body > div > div{
+    min-height: 94vh;
+} */
     ul{
         list-style: none;
     }

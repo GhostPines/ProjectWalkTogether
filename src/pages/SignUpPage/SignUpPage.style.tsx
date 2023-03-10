@@ -195,16 +195,19 @@ export const EtcBtn = styled.div`
 export const CheckBtn = styled.div`
   width: 20px;
   height: 15px;
+
   /* position: fixed;
   right: 430px;
 
   bottom: 366px; */
+
   cursor: pointer;
   :active {
     width: 20px;
     height: 15px;
   }
 `;
+
 export const CheckPassWordBtn = styled.div`
   width: 20px;
   height: 15px;
@@ -219,9 +222,11 @@ export const CheckPassWordBtn = styled.div`
   } */
 `;
 
+
 export const CheckPassBtn = styled.div`
   width: 20px;
   height: 15px;
+
   position: relative;
   left: 250px;
   bottom: 10px;
@@ -256,14 +261,17 @@ export const OpenPassCheckBtn = styled.div`
     width: 22px;
     height: 27px;
   } */
+
 `;
 
 export const DeleteCheckBtn = styled.div`
   width: 13px;
   height: 13px;
+
   position: relative;
   left: 280px;
   bottom: 25px;
+
 
   cursor: pointer;
   :active {
@@ -275,6 +283,7 @@ export const DeleteCheckBtn = styled.div`
 export const DeletePassCheckBtn = styled.div`
   width: 13px;
   height: 13px;
+
   position: relative;
   left: 280px;
   bottom: 25px;
@@ -284,13 +293,16 @@ export const DeletePassCheckBtn = styled.div`
     width: 13px;
     height: 13px;
   } */
+
 `;
 
 export const CheckBox = styled.div`
   display: flex;
   position: relative;
+
   left: 280px;
   bottom: 10px;
+
   gap: 12px;
 `;
 
@@ -302,6 +314,7 @@ export const PassCheckBox = styled.div`
   gap: 12px;
 `;
 
+
 export const CheckPasswordBox = styled.div``;
 
 export const EyeXBox = styled.div``;
@@ -309,6 +322,7 @@ export const EyeXBox = styled.div``;
 export const DeleteEmailCheckBtn = styled.div`
   width: 13px;
   height: 13px;
+
 
   cursor: pointer;
   :active {

@@ -9,6 +9,7 @@ const { persistAtom } = recoilPersist({
   storage: sessionStorage,
 });
 
+//* ---------------postpage------------------ *//
 //Date & Time
 export const Time = atom<string>({
   key: 'Time',
@@ -46,6 +47,8 @@ export const ThumbnailUpload = atom<any>({
   default: '',
 });
 
+//* ---------------Map page------------------ *//
+
 //위치
 export const myLocation = atom<any>({
   key: 'myLocation',
@@ -64,6 +67,7 @@ export const paramsState = atom<any>({
   default: '',
 });
 
+//* ---------------Map catgory page------------------ *//
 export const CategoryAllInput = atom<any>({
   key: 'CategoryAllInput',
   default: '',
@@ -114,7 +118,6 @@ export const NewSortInput = atom<any>({
   default: '',
 });
 
-//* 상권님
 export const Cetegory = atom<any>({
   key: 'Cetegory',
   default: '전체',
@@ -159,16 +162,19 @@ export const filterDatename = atom<any>({
 export const isLoggedIn = atom<boolean>({
   key: 'isLoggedIn',
   default: false,
+  effects_UNSTABLE: [persistAtom],
 });
 
 export const currentUserUid = atom<string>({
   key: 'currentUserUid',
   default: '',
+  effects_UNSTABLE: [persistAtom],
 });
 
 export const username = atom<string>({
   key: 'username',
   default: '',
+  effects_UNSTABLE: [persistAtom],
 });
 
 export const NewpostTag = atom<string[]>({
@@ -200,15 +206,12 @@ export const FilterSelectedDate = atom<any>({
   default: '',
 });
 
-// export const lastCategoryAtom = atom<any>({
-//   key: 'lastCategory',
-//   default: '반려동물',
-// });
-
 export const userForChat = atom<any>({
   key: 'userForChat',
   default: '',
 });
+
+//* ---------------Chatting page------------------ *//
 
 //채팅리스트에서 채팅박스로 채팅방id를 보냄
 export const tochattingboxroomid = atom<string>({
@@ -227,6 +230,8 @@ export const tochattingboxprofileimg = atom<string>({
   key: 'tochattingboxprofileimg',
   default: '',
 });
+
+//* ---------------postEdit page------------------ *//
 
 export const ReserveEditDate = atom<any>({
   key: 'ReserveEditDate',

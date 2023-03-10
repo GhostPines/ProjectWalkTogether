@@ -171,7 +171,9 @@ export const ChattingBox = styled.div`
   height: 564px;
   background-color: white;
   border-radius: 4px;
+
   margin-top: 120px;
+
 `;
 
 export const GreenLight = styled.div`

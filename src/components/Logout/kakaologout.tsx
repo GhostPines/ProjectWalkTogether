@@ -1,7 +1,5 @@
-import React from 'react';
 import styled from 'styled-components';
 import { authService } from '../../common/firebase';
-import { signOut } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { kakaoState } from '../../Rocoil/Atom';

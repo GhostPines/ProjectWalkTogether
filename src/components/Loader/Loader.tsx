@@ -21,8 +21,6 @@ const Loading = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  /* opacity: 0; */
-  /* animation: react-confirm-alert 0.5s 0.2s forwards; */
 `;
 const Img = styled.img`
   width: 500px;

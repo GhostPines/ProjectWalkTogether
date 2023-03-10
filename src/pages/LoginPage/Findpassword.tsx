@@ -19,6 +19,10 @@ const FindPassword = () => {
   );
   const [findPwd, setFindPwd] = useState('');
   const email = findPwd;
+  //비밀번호 초기화 버튼
+  const findPasswordClear = () => {
+    setFindPwd(() => '');
+  };
 
   const navigate = useNavigate();
   // 비밀번호 재설정 함수 (비밀번호 찾기)
@@ -58,7 +62,17 @@ const FindPassword = () => {
               true,
               '등록되지 않은 이메일입니다',
               '',
-              [],
+              [
+                {
+                  text: '닫 기',
+                  callback: () => {
+                    MessageWindow.showWindow(
+                      new MessageWindowProperties(),
+                      setState
+                    );
+                  },
+                },
+              ],
               MessageWindowLogoType.CryingFace
             ),
             setState
@@ -71,6 +85,9 @@ const FindPassword = () => {
       setValidate('이메일을 정확히 입력해 주세요.');
     }
   };
+
+  console.log('findPwd:', findPwd);
+
   return (
     <>
       <CommonStyles>
@@ -79,21 +96,42 @@ const FindPassword = () => {
             {/* <S.leftBox /> */}
             <S.InputBoxContent>
               <S.LoginLogo>
-                <S.LogoText>비밀번호 찾기</S.LogoText>
+                <S.LogoText style={{ top: 20 }}>비밀번호 찾기</S.LogoText>
               </S.LoginLogo>
 
-              <S.Inputholder>
+              <S.Inputholder style={{ top: 60 }}>
                 <S.Input
                   type='text'
                   name='비밀번호'
                   placeholder='비밀번호를 변경할 이메일을 입력하세요.'
+                  value={findPwd}
                   onChange={findPasswordfnc}
                 ></S.Input>
+                {findPwd === '' ? (
+                  <S.CheckBtn onClick={findPasswordClear}>
+                    <S.CheckIconright
+                      src={
+                        require('../../assets/ChattingIcon/check.svg').default
+                      }
+                    />
+                  </S.CheckBtn>
+                ) : (
+                  <S.CheckBtn onClick={findPasswordClear}>
+                    <S.CheckIconright
+                      src={
+                        require('../../assets/ChattingIcon/clearbtn.svg')
+                          .default
+                      }
+                    />
+                  </S.CheckBtn>
+                )}
               </S.Inputholder>
               <S.ButtonBox>
-                <S.FindBtn onClick={resetPassword}>비밀번호 찾기</S.FindBtn>
-
+                <S.FindBtn onClick={resetPassword}>
+                  <S.FindBtnText>다음으로</S.FindBtnText>
+                </S.FindBtn>
                 <S.Validityfontbox>{validate}</S.Validityfontbox>
+                <S.BackBtn>이전으로 돌아가기</S.BackBtn>
               </S.ButtonBox>
             </S.InputBoxContent>
           </S.InputBox>

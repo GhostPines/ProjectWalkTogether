@@ -2,8 +2,6 @@ import styled from 'styled-components';
 
 export const MapAndControlContainer = styled.span`
   width: 100%;
-  /* height: 536px; */
-  /* position: relative; */
 `;
 export const CustomZoomControl = styled.div`
   position: relative;

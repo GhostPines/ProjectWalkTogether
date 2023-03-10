@@ -1,9 +1,7 @@
 import styled from 'styled-components';
-import { borderline } from './../../PostEditPage/InputInformationEdit/InputInformationEdit.style';
 
 export const TabbarWrap = styled.div`
   font-family: 'SUITERegular';
-  /* border-bottom: 2px solid #cbcbcb; */
   position: relative;
   margin-bottom: 50px;
   margin-top: 50px;
@@ -13,7 +11,6 @@ export const TabbarWrap = styled.div`
 
 export const UserWriteBtn = styled.button`
   font-family: 'SUITERegular';
-  /* width: 90px; */
   letter-spacing: -2px;
   height: 47px;
   margin-right: 13px;
@@ -24,7 +21,6 @@ export const UserWriteBtn = styled.button`
 `;
 export const UserInterest = styled.button`
   font-family: 'SUITERegular';
-  /* width: 90px; */
   letter-spacing: -2px;
   height: 47px;
   margin-right: 13px;
@@ -38,10 +34,6 @@ export const UserInterest = styled.button`
 `;
 export const borderlinebottom = styled.div`
   position: relative;
-  /* width: 25%;
-  height: 5px;
-  background: #333;
-  border-radius: 5px; */
 `;
 export const barWrap = styled.div`
   position: absolute;
