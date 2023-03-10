@@ -1,17 +1,8 @@
 import * as S from './InputInformationEdit.style';
-// import MapContainer from '../../MapPage/Map/map';
 import { myLocation, selectedAddress } from '../../../Rocoil/Atom';
-import {
-  Map,
-  MapMarker,
-  ZoomControl,
-  MapTypeControl,
-} from 'react-kakao-maps-sdk';
-import { useState, useEffect } from 'react';
-import React from 'react';
+import { Map, MapMarker } from 'react-kakao-maps-sdk';
+import { useState, useEffect, useRef } from 'react';
 import { useRecoilState } from 'recoil';
-import AntCalendar from '../../PostPage/Hooks/Calendar/AntCalendarDate';
-import AntCalendarTime from '../../PostPage/Hooks/Calendar/AntCalendarTime';
 import AntCalendarEdit from '../Calendar/AntCalendarDateEdit';
 import AntCalendarTimeEdit from '../Calendar/AntCalendarTimeEdit';
 
@@ -28,6 +19,9 @@ function InputInformationEdit({ addressEdit, lat, lng }: Edit) {
 
   // 지도 좌표를 저장할 state   (o)
   const [position, setPosition] = useRecoilState(myLocation);
+
+  // 인포윈도우 Open 여부를 저장하는 state 입니다.
+  const [isOpen, setIsOpen] = useState({ lat: '', lng: '', isopen: false });
 
   // db에 올라간 위치가 불러질때 myloca(db에 올라간 위치)를 setPostiton 함수에 넣는 로직
   useEffect(() => {
@@ -53,27 +47,29 @@ function InputInformationEdit({ addressEdit, lat, lng }: Edit) {
   const [address, setAddress] = useRecoilState(selectedAddress);
   const geocoder = new kakao.maps.services.Geocoder();
 
-  // 내위치로 찍혀서 이거 삭제하면된다
-  // 사용자 위치를 가져오기 위한 useEffect
-  // React.useEffect(() => {
-  //   if (navigator.geolocation) {
-  //     navigator.geolocation.getCurrentPosition(
-  //       (position) => {
-  //         setMyLoca({
-  //           lat: position.coords.latitude, // 위도
-  //           lng: position.coords.longitude, // 경도
-  //         });
-  //       },
-  //       (err) => {
-  //         alert('현재 위치를 표시할 수 없어요');
-  //       },
-  //       { enableHighAccuracy: true } // 위치정보의 정확도를 높이는 옵션
-  //     );
-  //   } else {
-  //     // HTML5의 GeoLocation을 사용할 수 없을때
-  //     alert('현재 위치를 표시할 수 없어요');
-  //   }
-  // }, []);
+  // 커스터마이징 된 지도 컨트롤러
+  const mapRef = useRef(null);
+
+  // 줌인
+  const zoomIn = () => {
+    const mapControl = mapRef.current;
+    mapControl.setLevel(map.getLevel() - 1);
+  };
+  // 줌아웃
+  const zoomOut = () => {
+    const mapControl = mapRef.current;
+    mapControl.setLevel(map.getLevel() + 1);
+  };
+  // 내위치 찾기
+  const findMyLocation = () => {
+    const mapControl = mapRef.current;
+    mapControl.panTo(new kakao.maps.LatLng(myLoca.lat, myLoca.lng));
+  };
+  // 카카오 길찾기 링크로 이동 (내 위치 -> useState Postion에 저장된 위치)
+  const linkToKaKaoNavi = () => {
+    const url = `https://map.kakao.com/link/search/${address}`;
+    window.open(url);
+  };
 
   // 키워드로 장소검색하기 위한 useEffect
   useEffect(() => {
@@ -121,8 +117,6 @@ function InputInformationEdit({ addressEdit, lat, lng }: Edit) {
     });
   };
   convertAddress();
-  console.log(address);
-  console.log(search);
 
   return (
     <S.MapNInputBox>
@@ -138,30 +132,62 @@ function InputInformationEdit({ addressEdit, lat, lng }: Edit) {
           <Map
             center={myLoca}
             style={{ width: '100%', height: '100%' }}
-            level={3}
-            onClick={(_t, mouseEvent) =>
-              setPosition({
-                lat: mouseEvent.latLng.getLat(),
-                lng: mouseEvent.latLng.getLng(),
-              })
-            }
+            level={4}
             onCreate={setMap}
+            ref={mapRef}
+            onClick={(_t, mouseEvent) => {
+              // if setIsOpen is true, set it to false
+              // else call setPosition
+              if (isOpen.isopen) {
+                setIsOpen({
+                  lat: '',
+                  lng: '',
+                  isopen: false,
+                });
+              } else
+                setPosition({
+                  lat: mouseEvent.latLng.getLat(),
+                  lng: mouseEvent.latLng.getLng(),
+                });
+            }}
           >
-            <ZoomControl position={kakao.maps.ControlPosition.TOPRIGHT} />
-            <MapTypeControl position={kakao.maps.ControlPosition.TOPRIGHT} />
             {position && <MapMarker position={position} />}
 
-            {/* {markers.map((marker) => (
-              <MapMarker
-                key={`marker-${marker.content}-${marker.position.lat},${marker.position.lng}`}
-                position={marker.position}
-                onClick={() => setInfo(marker)}
-              >
-                {info && info.content === marker.content && (
-                  <div style={{ color: '#000' }}>{marker.content}</div>
-                )}
-              </MapMarker>
-            ))} */}
+            <S.CustomZoomControl className='custom_zoomcontrol'>
+              <S.ZoomInButton onClick={zoomIn}>
+                {/* <AiOutlinePlus size={40} /> */}
+                <S.ZoomInSVG
+                  src={
+                    require('../../../assets/MapPageIcon/PlusButton.svg')
+                      .default
+                  }
+                />
+              </S.ZoomInButton>
+              <S.ZoomOutButton onClick={zoomOut}>
+                <S.ZoomOutSVG
+                  src={
+                    require('../../../assets/MapPageIcon/MinusButton.svg')
+                      .default
+                  }
+                />
+              </S.ZoomOutButton>
+              <S.FindMyLocationButton onClick={findMyLocation}>
+                <S.FindMyLocationSVG
+                  src={
+                    require('../../../assets/MapPageIcon/LocationButton.svg')
+                      .default
+                  }
+                />
+              </S.FindMyLocationButton>
+              <S.LinkToKaKaoNavibutton onClick={linkToKaKaoNavi}>
+                <S.LinkToKaKaoNaviSVG
+                  src={
+                    require('../../../assets/MapPageIcon/NaviButton.svg')
+                      .default
+                  }
+                />
+              </S.LinkToKaKaoNavibutton>
+            </S.CustomZoomControl>
           </Map>
           {/* {position && (
             <p>

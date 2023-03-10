@@ -1,39 +1,17 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import * as S from './InfoList.style';
 import { useState } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import {
-  CategoryAllInput,
-  SelectedCategoryInput,
-  DateAllInput,
-  SelectedDateInput,
-  LocationAllInput,
-  SelectedLocationInput,
-  DateSortInput,
-  ViewSortInput,
-  LikeSortInput,
-  NewSortInput,
   Cetegory,
   FilterSelectedDateForMapPage,
   dateType1ForMapPage,
   viewCountForMapPage,
 } from '../../../Rocoil/Atom';
 
-import { useSearch } from '../../../hooks/useSearch';
-import {
-  query,
-  collection,
-  where,
-  orderBy,
-  getDocs,
-  onSnapshot,
-} from 'firebase/firestore';
-import { dbService } from '../../../common/firebase';
-
-import { useParams, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { paramsState } from '../../../Rocoil/Atom';
 import { useSetRecoilState } from 'recoil';
-import CommonStyles from './../../../styles/CommonStyles';
 import CardSection from './../../../components/CardSection/CardSection';
 import { Post, usePosts } from '../../../api/postsApi';
 
@@ -41,7 +19,8 @@ const InfoList = ({ Post }) => {
   const navigate = useNavigate();
   const setParams = useSetRecoilState(paramsState);
   const Category = useRecoilValue(Cetegory);
-  const postings: Array<Post> = usePosts().filter((post) => {
+  const { posts, refetch } = usePosts();
+  const postings: Array<Post> = posts.filter((post) => {
     if (Category === '전체') return true;
     return post.Category_Posting === Category;
   });
@@ -51,13 +30,12 @@ const InfoList = ({ Post }) => {
   const viewCount = useRecoilValue(viewCountForMapPage);
 
   const DateType1 = useRecoilValue(dateType1ForMapPage);
-  // console.log('DateType1', DateType1);
+
   const [SelectedDate, setSelectedDate] = useState('');
   // DateType1 을 받아와서 SelectedDate 에 넣어준다.
   useEffect(() => {
     setSelectedDate(DateType1);
   }, [DateType1]);
-  // console.log('SelectedDate', SelectedDate);
 
   const postpostpost =
     Category !== '전체'
@@ -103,12 +81,9 @@ const InfoList = ({ Post }) => {
           </S.NoResult>
         ) : (
           DoubledFilterDate.map((post: any) => {
-            return <CardSection key={post.id} post={post} />;
+            return <CardSection key={post.id} post={post} refetch={refetch} />;
           })
         )}
-        {/* {postpostpost.map((post: any) => {
-          return <CardSection key={post.id} post={post} />;
-        })} */}
       </S.LikedListItem>
     </>
   );

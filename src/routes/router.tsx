@@ -1,7 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Header from '../layout/Header';
-import RightSideWeatherCheck from '../layout/WeatherCheck';
-import Footer from '../layout/Footer';
 import MainPage from '../pages/MainPage/MainPage';
 import LoginPage from '../pages/LoginPage/LoginPage';
 import SignUpPage from '../pages/SignUpPage/SignUpPage';
@@ -25,7 +23,8 @@ import MeetDateInitializer from './../components/MeetDateInitializer/MeetDateIni
 import ChangePassword from '../pages/ChangePassword/ChangePassword';
 import ScrollToTopButton from './../components/ScrollToTopButton/ScrollToTopButton';
 import RerouteToMyPage from './../components/RerouteToMyPage/RerouteToMyPage';
-
+import FindPassword from '../pages/LoginPage/Findpassword';
+import Footer from '../layout/Footer/Footer';
 const Router = () => {
   const setState = useSetRecoilState<MessageWindowProperties>(
     messageWindowPropertiesAtom
@@ -46,15 +45,16 @@ const Router = () => {
         <Route path='/category/:category' element={<Category />} />
         <Route path='/collection/:id' element={<Collection />} />
         <Route path='/detailpage/:id' element={<DetailPage />} />
-        <Route path='agreement' element={<Agreement />} />
+        <Route path='/agreement' element={<Agreement />} />
         <Route path='/edit/:id' element={<PostEditPage />} />
         <Route path='/chat' element={<ChattingPage />} />
         <Route path='/changepassword' element={<ChangePassword />} />
         <Route path='/reroutetomypage' element={<RerouteToMyPage />} />
+        <Route path='/find' element={<FindPassword />} />
       </Routes>
+      <Footer />
       <ScrollToTopButton />
       <MeetDateInitializer />
-      <Footer />
     </BrowserRouter>
   );
 };

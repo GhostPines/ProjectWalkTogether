@@ -2,16 +2,17 @@ import { useEffect } from 'react';
 import { atom, useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
-import checkmark from '../assets/messageWindow/Checkmark.svg';
-import confetti from '../assets/messageWindow/Confetti.svg';
-import cryingFace from '../assets/messageWindow/CryingFace.svg';
-import flower from '../assets/messageWindow/Flower.svg';
-import id from '../assets/messageWindow/ID.svg';
-import perplex from '../assets/messageWindow/Perplex.svg';
-import rocket from '../assets/messageWindow/Rocket.svg';
-import writingHand from '../assets/messageWindow/WritingHand.svg';
-import yellowPencil from '../assets/messageWindow/YellowPencil.svg';
-import CloseButton from '../assets/messageWindow/CancelBtn.svg';
+import checkmark from '../assets/messageWindow/Checkmark.png';
+import confetti from '../assets/messageWindow/Confetti.png';
+import cryingFace from '../assets/messageWindow/CryingFace.png';
+import flower from '../assets/messageWindow/Flower.png';
+import id from '../assets/messageWindow/ID.png';
+import perplex from '../assets/messageWindow/Perplex.png';
+import rocket from '../assets/messageWindow/Rocket.png';
+import writingHand from '../assets/messageWindow/WritingHand.png';
+import yellowPencil from '../assets/messageWindow/YellowPencil.png';
+import CloseButton from '../assets/messageWindow/CancelBtn.png';
+import congratulation from '../assets/messageWindow/Congratulation.png';
 
 //
 // 사용법
@@ -69,6 +70,7 @@ export enum MessageWindowLogoType {
   Rocket,
   WritingHand,
   YellowPencil,
+  Congratulation,
 }
 
 export function MessageWindowComponent() {
@@ -188,6 +190,9 @@ export function MessageWindowComponent() {
 
       case MessageWindowLogoType.YellowPencil:
         return <LogoImg src={yellowPencil} alt='Yellow Pencil' />;
+
+      case MessageWindowLogoType.Congratulation:
+        return <LogoImg src={congratulation} alt='Congratulationl' />;
 
       default:
         return <></>;

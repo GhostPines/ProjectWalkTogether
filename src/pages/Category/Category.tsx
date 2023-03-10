@@ -1,34 +1,28 @@
-import React from 'react';
 import * as S from './Category.style';
-import { useEffect, useState } from 'react';
-import { useParams, useLocation } from 'react-router-dom';
-import {
-  query,
-  collection,
-  where,
-  orderBy,
-  getDocs,
-  onSnapshot,
-} from 'firebase/firestore';
-import { dbService } from '../../common/firebase';
+import { useState } from 'react';
+import { useParams } from 'react-router-dom';
 import CardSection from '../../components/CardSection/CardSection';
 import CommonStyles from '../../styles/CommonStyles';
 import DropdownFilterCategory from './../../components/DropdownFilterCategory/DropdownFilterCategory';
 import AntCalendarMap from './Calendar/AntCalendarDate';
-import { Cetegory, FilterSelectedDate } from '../../Rocoil/Atom';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { FilterSelectedDate } from '../../Rocoil/Atom';
+import { useRecoilState } from 'recoil';
 
 import { CategorysList } from '../../utils/CategorysList';
 import { Post, usePosts } from '../../api/postsApi';
 
 const Category = () => {
   const { category } = useParams();
-  console.log(category);
-  const postings: Array<Post> = usePosts().filter((post) => {
+
+  //refetch
+  const { posts, refetch } = usePosts();
+
+  // postsApi
+  const postings: Array<Post> = posts.filter((post) => {
     if (category === '전체') return true;
     return post.Category_Posting === category;
   });
-  // console.log(category);
+
   const [show, setShow] = useState<any>(false);
   const [TextChange, setTextChange] = useState('카테고리');
 
@@ -65,31 +59,14 @@ const Category = () => {
   const m = meetDate.$M;
   const d = meetDate.$D;
   const month = meetDate.$M + 1;
-  console.log(y, m, d);
-  // console.log(FilterSelectedDate);
-  // 달력
 
   const SelectedDate = `${month}/${d} ${date(y, m, d)}`;
-  // const SelectedDate = `${todayMonth}/${meetDaynum}`;
-
-  // 내가 필터 달력 클릭한 값이 잘 넘어온다.
-  // console.log('SelectedDate', SelectedDate);
 
   // FilterDate는 DoubleFilterDate를 위해 쓰는 코드이다.
   const FilteredDate =
     SelectedDate.length < 14
       ? postings.filter((post: any) => post.RsvDate_Posting === SelectedDate)
       : postings;
-
-  // FilteredDate를 가지고 조회순으로 정렬해주는 함수이다.
-  // const DoubledFilterDate =
-  //   viewCount === '조회순'
-  //     ? [...FilteredDate].sort((a, b) => b.View - a.View)
-  //     : viewCount === '좋아요순'
-  //     ? [...FilteredDate].sort(
-  //         (a, b) => b.LikedUsers.length - a.LikedUsers.length
-  //       )
-  //     : FilteredDate;
 
   // switch문 찾아보기
   const DoubleFilteredDateFunction = () => {
@@ -114,7 +91,7 @@ const Category = () => {
           {/*useParams 받아온 카테고리 이름과 같으면 해당 img 보여줌*/}
           {CategorysList.map((item) => {
             if (category === item.name) {
-              return <S.CategoryImg src={item.img} />;
+              return <S.CategoryImg src={item.img} key={item.name} />;
             }
           })}
           <S.CategoryTitle>{category}</S.CategoryTitle>
@@ -169,7 +146,9 @@ const Category = () => {
             </S.NoResult>
           ) : (
             DoubledFilterDate.map((post: any) => {
-              return <CardSection key={post.id} post={post} />;
+              return (
+                <CardSection key={post.id} post={post} refetch={refetch} />
+              );
             })
           )}
         </S.LikedListItem>

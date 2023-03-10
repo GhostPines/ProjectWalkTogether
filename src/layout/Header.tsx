@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/alt-text */
 import { useState } from 'react';
 import * as S from './Header.style';
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -19,7 +20,11 @@ import MessageWindow, {
   messageWindowPropertiesAtom,
 } from '../messagewindow/MessageWindow';
 
-const Header = () => {
+interface PropsType {
+  onClick?: (e: React.MouseEvent) => void;
+}
+
+const Header = (): JSX.Element => {
   const location = useLocation();
   const history = useNavigate();
   const navigate = useNavigate();
@@ -30,17 +35,13 @@ const Header = () => {
   const [alarm, setAlarm] = useState(0);
   const [view, setView] = useState(false);
 
-  // const getKakaoCode = () => {
-  //   const code = new URL(window.location.href).searchParams.get('code');
-  //   if (code) {
-  //     setKakaoCode(code);
-  //     console.log(code);
-  //   }
-  // };
-
   const setState = useSetRecoilState<MessageWindowProperties>(
     messageWindowPropertiesAtom
   );
+
+  const sessionKey = `firebase:authUser:${process.env.FIREBASE_API_KEY}:[DEFAULT]`;
+  const userItem = sessionStorage.getItem(sessionKey);
+  const uid = !!userItem ? JSON.parse(userItem).uid : '';
 
   const handleLogin = () => {
     navigate('login');
@@ -57,7 +58,7 @@ const Header = () => {
       navigate('/reroutetomypage');
       return;
     }
-    navigate('/mypage');
+    navigate(`/mypage/${uid}`);
   };
 
   const home = () => {
@@ -65,10 +66,11 @@ const Header = () => {
   };
 
   // const kakaoUser = sessionStorage.getItem('id');
-
-  const sessionId = useRecoilValue(username);
+  // location.pathname === '/signup' ?
+  const sessionId = sessionStorage.getItem('id');
 
   console.log('alarm:', alarm);
+  console.log(location.pathname);
 
   // getKakaoCode();
   //const currentUser = authService.currentUser;
@@ -81,7 +83,7 @@ const Header = () => {
         <S.NavLi>
           <S.OllaeBox onClick={home}>
             <S.OllaeLogo
-              src={require('../../src/assets/ollaelogo.svg').default}
+              src={require('../../src/assets/Mainpage/ollaelogo.svg').default}
             />
             <S.OllaeText>올래</S.OllaeText>
           </S.OllaeBox>
@@ -94,68 +96,14 @@ const Header = () => {
           <S.NavUl>
             <S.NavLi>
               {loggedIn === false ? (
-                <S.NavText
-                  onClick={() => {
-                    // alert('로그인을 해주세요!');
-                    MessageWindow.showWindow(
-                      new MessageWindowProperties(
-                        true,
-                        '로그인을 해주세요!',
-                        '',
-                        [
-                          {
-                            text: '닫 기',
-                            callback: () => {
-                              MessageWindow.showWindow(
-                                new MessageWindowProperties(),
-                                setState
-                              );
-                            },
-                          },
-                        ],
-                        MessageWindowLogoType.Perplex
-                      ),
-                      setState
-                    );
-                  }}
-                  to='/login'
-                >
-                  글 쓰기
-                </S.NavText>
+                <S.NavText to='/login'>글 쓰기</S.NavText>
               ) : (
                 <S.NavText to='/postpage'>글 쓰기</S.NavText>
               )}
             </S.NavLi>
             <S.NavLi>
               {loggedIn === false ? (
-                <S.NavText
-                  onClick={() => {
-                    // alert('로그인을 해주세요!');
-                    MessageWindow.showWindow(
-                      new MessageWindowProperties(
-                        true,
-                        '로그인을 해주세요!',
-                        '',
-                        [
-                          {
-                            text: '닫 기',
-                            callback: () => {
-                              MessageWindow.showWindow(
-                                new MessageWindowProperties(),
-                                setState
-                              );
-                            },
-                          },
-                        ],
-                        MessageWindowLogoType.Perplex
-                      ),
-                      setState
-                    );
-                  }}
-                  to='/login'
-                >
-                  채팅
-                </S.NavText>
+                <S.NavText to='/login'>채팅</S.NavText>
               ) : (
                 <S.NavText to='/chat'>채 팅</S.NavText>
               )}
@@ -166,7 +114,6 @@ const Header = () => {
           </S.NavUl>
         </S.SideOllae>
         <S.NavEtc>
-          {/* <S.Profile onClick={gotomy}>닉네임</S.Profile> */}
           <S.AlarmContainer>
             {loggedIn ? (
               <S.DropdownButton onClick={alarmHandler} ref={alarmRef}>
@@ -182,9 +129,9 @@ const Header = () => {
                     <S.NotificationTitleBox>
                       알림
                       <S.NotificationTitleXbtn>
-                        <img
+                        {/* <img
                           src={require('../assets/ChattingIcon/X.svg').default}
-                        ></img>
+                        ></img> */}
                       </S.NotificationTitleXbtn>
                     </S.NotificationTitleBox>
 

@@ -5,8 +5,9 @@ import { TitleInput, DescriptionInput } from '../../../Rocoil/Atom';
 import { Bannerupload, ThumbnailUpload } from '../../../Rocoil/Atom';
 
 import DropdownCategory from '../../../components/DropdownCategoryForWritePage/DropdownCategory';
-import Tag from '../../../components/Tag';
+import Tag from '../../../components/Tag/Tag';
 import useDetectClose from './../../../hooks/useDetectClose';
+import imageCompression from 'browser-image-compression';
 
 interface SetProps {
   setPostCategory: React.Dispatch<React.SetStateAction<string>>;
@@ -33,7 +34,7 @@ function MainPost({
 }: SetProps) {
   // 모달 외부 클릭 시 닫기 customhook
   const [myPageIsOpen, myPageRef, myPageHandler] = useDetectClose(false);
-  const [posttitel, Setposttitle] = useRecoilState(TitleInput); //글 제목
+  const [posttitle, Setposttitle] = useRecoilState(TitleInput); //글 제목
   //const [postTag, setPostTag] = useState(''); //해쉬태그
   const [postdescription, SetDescription] = useRecoilState(DescriptionInput); //글 내용
   // const [postCategory, setPostCategory] = useState(''); //카테고리
@@ -42,6 +43,37 @@ function MainPost({
   const [thumbnail, setThumbnail] = useState<any>(null); // Handles input change event and updates state
   const [banner, setBanner] = useState<any>(null);
   const [show, setShow] = useState<any>(false);
+  //유효성검사
+  const [isActiveTitle, setIsActiveTitle] = useState<boolean>(false);
+
+  //이미지 압축 함수
+  const compressThumbnailImage = async (image: File) => {
+    try {
+      const options = {
+        maxSizeMB: 0.005,
+        maxWidthOrHeight: 1840,
+        // useWebWorker: true,
+      };
+      const compressedFile = await imageCompression(image, options);
+      setPhotoupload(() => compressedFile);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+  //배너 이미지 압축
+  const compressBannerImage = async (image: File) => {
+    try {
+      const options = {
+        maxSizeMB: 0.5,
+        maxWidthOrHeight: 1840,
+        // useWebWorker: true,
+      };
+      const compressedFile = await imageCompression(image, options);
+      setBanneruploadupload(() => compressedFile);
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   function thumnailimageChange(e: any) {
     const filelist = e.target.files[0];
@@ -49,11 +81,12 @@ function MainPost({
     const reader = new FileReader();
 
     reader.onload = () => {
-      setPhotoupload(() => filelist);
+      compressThumbnailImage(filelist);
+      // setPhotoupload(() => filelist);
       setThumbnail(() => reader.result);
     };
     reader.readAsDataURL(filelist);
-    console.log('썸네일 인풋:', photoupload);
+    console.log('썸네일 인풋:', reader);
   }
 
   function bannerimageChange(e: any) {
@@ -62,7 +95,8 @@ function MainPost({
     const reader = new FileReader();
 
     reader.onload = () => {
-      setBanneruploadupload(() => filelist);
+      // setBanneruploadupload(() => banner);
+      compressBannerImage(filelist);
       setBanner(() => reader.result);
     };
 
@@ -73,14 +107,14 @@ function MainPost({
   // 타이틀
   ////////
   const handleChange = (e: any) => {
-    Setposttitle(e.target.value);
-    posttitel === '' ? setIsValidityTitle(true) : setIsValidityTitle(false);
+    Setposttitle(() => e.target.value);
+    posttitle === '' ? setIsValidityTitle(true) : setIsValidityTitle(false);
   };
 
   ////////
   //글내용
   const handleChangeText = (e: any) => {
-    SetDescription(e.target.value);
+    SetDescription(() => e.target.value);
     postdescription === ''
       ? setIsValidityContents(true)
       : setIsValidityContents(false);
@@ -94,7 +128,7 @@ function MainPost({
             src={
               banner
                 ? banner
-                : require('../../../assets/ChattingIcon/banner2.svg').default
+                : require('../../../assets/ChattingIcon/banner3.svg').default
             }
           />
         </label>
@@ -163,6 +197,7 @@ function MainPost({
           )}
           {/*모달 외부 클릭 시 닫힘*/}
           <S.InputTitle
+            // value={isActiveTitle}
             onChange={handleChange}
             placeholder='제목을 입력해 주세요'
             isValidityTitle={isValidityTitle}

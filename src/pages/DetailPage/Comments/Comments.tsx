@@ -1,6 +1,6 @@
 import React from 'react';
 import * as S from './Comments.style';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { authService, dbService } from '../../../common/firebase';
 import { useNavigate } from 'react-router-dom';
 import {
@@ -241,22 +241,6 @@ const Comments = ({ param }: postProps) => {
 
   // 댓글 삭제
   const DeleteCommentHandler = async (documentId: any) => {
-    // confirmAlert({
-    //   title: '정말 댓글을 삭제하시겠습니까?',
-    //   message: '삭제한 댓글은 되돌릴 수 없습니다.',
-    //   buttons: [
-    //     {
-    //       label: '네',
-    //       onClick: async () => {
-    //         await deleteDoc(doc(dbService, 'comments', documentId));
-    //       },
-    //     },
-    //     {
-    //       label: '아니오',
-    //       onClick: () => setMyComment,
-    //     },
-    //   ],
-    // });
     MessageWindow.showWindow(
       new MessageWindowProperties(
         true,

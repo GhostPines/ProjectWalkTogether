@@ -16,24 +16,9 @@ import moment from 'moment';
 const AntCalendarTimeEdit: React.FC = () => {
   const format = 'HH:mm';
   const [reserveTime, setReserveTime] = useRecoilState<any>(TimeEdit);
-  // console.log(reserveTime);
+
   // db 시간 가져오기
   const { state } = useLocation();
-  // console.log(state);
-
-  // const year = state.TimeStamp_Posting.slice(0, 4);
-  // console.log(year);
-
-  // const change = state.RsvHour_Posting.slice(3);
-
-  // const Time2 = change.split(':');
-  // // console.log(Time);
-
-  // const hour2 = Time2[0];
-  // // console.log(hour);
-
-  // const min2 = Time2[1];
-  // // console.log(min);
 
   const postingHour =
     // db에 올라간 날짜에서 오전이라면
@@ -46,12 +31,6 @@ const AntCalendarTimeEdit: React.FC = () => {
         `${Number(state.RsvHour_Posting.slice(3).split(':')[0]) + 12}:${
           state.RsvHour_Posting.slice(3).split(':')[1]
         }`;
-  // console.log(state.RsvHour_Posting.slice(0, 2));
-  // console.log(state.RsvHour_Posting.slice(3));
-  // console.log(Number(state.RsvHour_Posting.slice(3).split(':')[0]) + 12);
-  // console.log(state.RsvHour_Posting.slice(3).split(':')[0]);
-  // console.log(state.RsvHour_Posting.slice(3).split(':')[1]);
-  // console.log(postingHour);
 
   // postingHour : 기준으로 나누어준다.
   // ex) 15: 15 --> [15,15]
@@ -90,7 +69,6 @@ const AntCalendarTimeEdit: React.FC = () => {
         onChange={onChange}
         inputReadOnly={true}
         format={format}
-        // placeholder='시간을 입력해주세요.'
         defaultValue={dayjs(PreviousHour, format)}
         style={{
           width: 219,

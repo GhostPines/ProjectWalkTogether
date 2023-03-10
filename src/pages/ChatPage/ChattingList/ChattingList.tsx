@@ -35,8 +35,6 @@ function ChattingList({
   SetTochattingBoxRoomIndex,
   SetTochattingBoxOpponenRoomIndex,
   tochattingBoxRoomIndex,
-  tochattingBoxUid,
-  tochattingBoxOpponentRoomIndex,
 }: SetProps) {
   const mychatlist = useRecoilValue(currentUserUid);
   const [chatList, setChatList] = useState<any>([]);

@@ -156,7 +156,7 @@ function ChattingBox({
           <S.ChattingNicknameto
           // onClick={() => navigate(`/mypage/${getPostings.UID}`)}
           >
-            {nickname} 님
+            {nickname == '' ? '대화상대를 선택해 주세요' : nickname} 님
           </S.ChattingNicknameto>
         </S.ChattingNickname>
         <S.ChattingContent>

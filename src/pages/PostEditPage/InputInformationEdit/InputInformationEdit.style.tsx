@@ -4,7 +4,6 @@ import { Input } from 'antd';
 export const MapNInputBox = styled.div`
   width: 100%;
   display: flex;
-  /* background-color: antiquewhite; */
   position: relative;
   top: -67px;
   margin-top: 112px;
@@ -15,7 +14,6 @@ export const MapNInputBox = styled.div`
 
 export const Selection = styled.div`
   position: relative;
-  /* background-color: blue; */
   right: 336px;
   font-size: 20px;
   font-weight: 500;
@@ -31,7 +29,6 @@ export const borderline = styled.div`
 `;
 
 export const InputBox = styled.div`
-  /* background-color: #d07171; */
   width: 863px;
   height: 50px;
   display: flex;
@@ -42,7 +39,6 @@ export const InputBox = styled.div`
 export const MapBox = styled.div`
   width: 863px;
   height: 436px;
-  /* background-color: gray; */
   border-top: 1px;
 `;
 
@@ -60,7 +56,6 @@ export const InputAdressBox = styled.form`
   height: 36.5px;
   position: relative;
   border: 2px solid #aeb1b7;
-  /* background-color: yellow; */
   border-radius: 4px;
 `;
 
@@ -82,7 +77,6 @@ export const InputAdress = styled(Input)`
 export const InpuDayBox = styled.div`
   width: 250px;
   height: 40px;
-  /* background-color: orange; */
   margin-left: 9px;
   font-size: 10px;
   border: 2px solid #aeb1b7;
@@ -104,10 +98,59 @@ export const AddressIcon = styled.img`
   object-fit: contain;
 `;
 export const MapAddressTitle = styled.div`
-  /* width: 100%; */
   display: flex;
-  /* flex-direction: row; */
   align-items: center;
   margin-bottom: 12px;
-  /* justify-content: center; */
+`;
+export const CustomZoomControl = styled.div`
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  bottom: 180px;
+  left: 818px;
+  z-index: 1;
+  gap: 3px;
+  width: 44px;
+  color: white;
+`;
+export const ZoomInButton = styled.span`
+  width: 40px;
+  height: 40px;
+`;
+export const ZoomOutButton = styled.span`
+  width: 40px;
+  height: 40px;
+`;
+export const FindMyLocationButton = styled.span`
+  width: 40px;
+  height: 40px;
+`;
+export const LinkToKaKaoNavibutton = styled.span`
+  width: 40px;
+  height: 40px;
+`;
+
+export const ZoomInSVG = styled.img`
+  width: 40px;
+  height: 40px;
+`;
+
+export const ZoomOutSVG = styled.img`
+  width: 40px;
+  height: 40px;
+`;
+
+export const FindMyLocationSVG = styled.img`
+  width: 40px;
+  height: 40px;
+`;
+
+export const LinkToKaKaoNaviSVG = styled.img`
+  width: 40px;
+  height: 40px;
+`;
+
+export const SearchSVG = styled.img`
+  width: 40px;
+  height: 40px;
 `;

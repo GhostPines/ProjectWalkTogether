@@ -17,8 +17,6 @@ const AntCalendar: React.FC = () => {
     console.log('달력/날짜:', reserveDate);
   };
 
-  // useEffect(() => );
-
   return (
     <ConfigProvider locale={locale}>
       <Space direction='vertical'>

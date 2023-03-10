@@ -10,6 +10,7 @@ import {
   selectedAddress,
   myLocation,
   NewpostTag,
+  userForChat,
 } from '../../../src/Rocoil/Atom';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { getAuth } from 'firebase/auth';
@@ -69,6 +70,9 @@ const PostPage = () => {
   const auth = getAuth();
   const user = auth.currentUser?.uid;
   const nickname = auth.currentUser?.displayName;
+  //onauthstatechage
+  const userinfo = useRecoilValue(userForChat);
+
   const KeyForChat_Posting = uuidv4();
   const [PostingID_Posting, setPostingID_Posting] = useState(uuidv4());
   // 페이지 전환
@@ -172,31 +176,33 @@ const PostPage = () => {
   }, []);
 
   useEffect(() => {
-    console.log(' thumbnail:', thumbnail);
+    // console.log(' thumbnail:', thumbnail);
     setPostTime(timestring); //현재 시간
     // setPostHour(meeting); //약속 시간
     setPostNickname(nickname);
     setPostAuthor(user);
   }, []);
 
+  console.log('포스트썸네일:', thumbnail);
+
   //settimeout test
   const geturl: any = (callback: () => void = () => {}) => {
-    getDownloadURL(ref(storage, `test/${PostingID_Posting}/thumbnail`))
+    getDownloadURL(ref(storage, `Image/${PostingID_Posting}/thumbnail`))
       .then((ThumbnailUrl) => {
         const getThumbnail = ThumbnailUrl;
         console.log('섬네일url', getThumbnail);
         // alert('섬네일url');
 
         //get썸네일 url
-        getDownloadURL(ref(storage, `test/${PostingID_Posting}/banner`))
+        getDownloadURL(ref(storage, `Image/${PostingID_Posting}/banner`))
           .then((bannerUrl) => {
             const getBanner = bannerUrl;
-            console.log('배너url', typeof getBanner);
+            console.log('배너url', getBanner);
 
             try {
               addDoc(collection(dbService, 'Post'), {
                 Description_Posting: Description,
-                Nickname: postNickname,
+                Nickname: userinfo?.mynickname,
                 RsvDate_Posting,
                 RsvHour_Posting,
                 createdAt: Date.now(),
@@ -375,7 +381,7 @@ const PostPage = () => {
       return;
     }
 
-    const imageRef = ref(storage, `test/${PostingID_Posting}/thumbnail`); //+${thumbnail}
+    const imageRef = ref(storage, `Image/${PostingID_Posting}/thumbnail`); //+${thumbnail}
 
     // `images === 참조값이름(폴더이름), / 뒤에는 파일이름 어떻게 지을지
     await uploadBytes(imageRef, thumbnail);
@@ -385,7 +391,7 @@ const PostPage = () => {
       return;
     }
 
-    const bannerRef = ref(storage, `test/${PostingID_Posting}/banner`); //+${thumbnail}
+    const bannerRef = ref(storage, `Image/${PostingID_Posting}/banner`); //+${thumbnail}
 
     // `images === 참조값이름(폴더이름), / 뒤에는 파일이름 어떻게 지을지
     /////////////////////////////////////////////////////////
@@ -428,7 +434,8 @@ const PostPage = () => {
 
     // setTimeout(adddoc, 8000);
   };
-  console.log(' location', location);
+  console.log(' userinfo', userinfo?.mynickname);
+
   return (
     <CommonStyles>
       <S.Boxcontainer>

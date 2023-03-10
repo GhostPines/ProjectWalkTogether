@@ -6,24 +6,41 @@ export const NavContainer = styled.div`
   height: 52px;
   background-color: white;
   width: 100%;
+  position: relative;
   border-bottom: 0.5px solid rgba(190, 197, 215, 1);
+  @media screen and (max-width: 420px) {
+    width: 100%;
+  }
 `;
 export const OllaeLogo = styled.img`
   width: 35px;
   height: 35px;
   padding-right: 6px;
-
   cursor: pointer;
+
+  @media screen and (max-width: 420px) {
+    width: 35px;
+    height: 35px;
+    padding-left: 20px;
+  }
 `;
 export const OllaeBox = styled.div`
   display: flex;
 `;
 
 export const OllaeText = styled.p`
+  margin: auto;
+  text-align: center;
+  margin-top: 3px;
   font-size: 20px;
   font-family: 'SUITEBold';
   font-weight: 600;
   cursor: pointer;
+  @media screen and (max-width: 420px) {
+    font-size: 15px;
+    font-family: 'SUITEBold';
+    font-weight: 600;
+  }
 `;
 
 export const Nav = styled.div`
@@ -32,14 +49,26 @@ export const Nav = styled.div`
   width: 868px;
   align-items: center;
   justify-content: space-between;
+  @media screen and (max-width: 420px) {
+    position: absolute;
+    width: 434px;
+  }
 `;
 
 export const SideOllae = styled.div`
   margin-right: 400px;
+  @media screen and (max-width: 420px) {
+    margin-right: 0px;
+
+    left: 30%;
+    position: absolute;
+  }
 `;
 
 export const NavUl = styled.ul`
   display: flex;
+  @media screen and (max-width: 420px) {
+  }
 `;
 
 export const NavLi = styled.li`
@@ -47,6 +76,9 @@ export const NavLi = styled.li`
   margin-right: 40px;
   margin-top: 8px;
   text-decoration: none;
+  @media screen and (max-width: 420px) {
+    margin-right: 20px;
+  }
 `;
 export const NavText = styled(Link)`
   text-decoration: none;
@@ -57,9 +89,11 @@ export const NavText = styled(Link)`
 `;
 export const LoginButton = styled.div`
   border: none;
-  padding: 5px;
+  padding: 4px 12px 4px 12px;
+  //상우하좌
+
   margin-top: 10px;
-  justify-content: center;
+
   border-radius: 5px;
   /* width: max-content; */
   height: 30px;
@@ -69,12 +103,11 @@ export const LoginButton = styled.div`
   background-color: #eef1f7;
   font-family: 'SUITERegular';
   letter-spacing: -0.1px;
+  justify-content: center;
 `;
 
 export const LoginLayout = styled.div`
-  display: flex;
-  overflow: visible;
-  width: 100%;
+  display: flex; ;
 `;
 export const LoginText = styled.p`
   margin-right: 10px;
@@ -83,6 +116,8 @@ export const LoginText = styled.p`
 export const NavEtc = styled.div`
   display: flex;
   margin: 0px;
+  @media screen and (max-width: 420px) {
+  }
 `;
 export const Profile = styled.div`
   padding-top: 10px;
@@ -180,7 +215,7 @@ export const NotificationsBox = styled.div`
   text-align: center;
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
   border-radius: 4px;
-  transform: translate(-50%, -20px);
+  transform: translate(-65%, -20px);
   /* opacity: 0; */
 `;
 

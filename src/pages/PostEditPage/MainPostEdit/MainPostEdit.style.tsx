@@ -1,12 +1,7 @@
-import styled from '@emotion/styled';
+import styled, { css } from 'styled-components';
 
 //배너 상단 박스
-export const Bannercontainer = styled.div`
-  /* display: flex;
-  background-color: #0000ff19;
-  width: 100%;
-  height: 379px; */
-`;
+export const Bannercontainer = styled.div``;
 
 // 글쓰기 최상위 박스
 export const Boxcontents = styled.div`
@@ -15,12 +10,10 @@ export const Boxcontents = styled.div`
   width: 868px;
   height: 289px;
   top: -67px;
-  /* bottom: 200px; */
   margin-left: 75px;
   display: flex;
   justify-content: center;
   border-radius: 4px;
-  /* align-items: center; */
   flex-wrap: wrap;
   background: rgba(255, 255, 255, 0.3);
   border: 1px solid #ffffff;
@@ -34,16 +27,11 @@ export const BoxMain = styled.div`
   position: absolute;
   left: 248px;
   top: 48px;
-  /* margin-top: 30px;
-  margin-left: 62px; */
   width: 80%;
-  /* height: 229px; */
 `;
 export const ThumbnailImgPorlaroid = styled.img`
   width: 1024px;
   height: 293px;
-  /* margin: 5px 35px 20px 24px; */
-  /* margin-bottom: 20px; */
 `;
 export const CalendarIcon = styled.img`
   position: absolute;
@@ -55,7 +43,6 @@ export const CalendarIcon = styled.img`
 `;
 export const CategoryTitle = styled.div`
   font-size: 23px;
-  /* padding: 0px 0px 0px 30px; */
   justify-content: center;
 `;
 export const CateogryWrapper = styled.div`
@@ -71,7 +58,7 @@ export const CateogryWrapper = styled.div`
 `;
 
 //제목 입력하는 input
-export const InputTitle = styled.input`
+export const InputTitle = styled.input<{ isValidityTitle: boolean }>`
   border: none;
   height: 30px;
   width: 80%;
@@ -90,6 +77,12 @@ export const InputTitle = styled.input`
   font-size: 16px;
   line-height: 20px;
 
+  ${({ isValidityTitle }) =>
+    isValidityTitle &&
+    css`
+      outline: 2px solid #ff8f8f;
+    `}
+
   &::placeholder {
     font-family: 'SUITERegular';
     font-style: normal;
@@ -100,20 +93,18 @@ export const InputTitle = styled.input`
   }
 
   &:focus {
-    outline: 2px solid #6a24ff;
+    outline: 2px solid #7d8bae;
   }
 `;
 
 //해쉬태그 박스
 export const HashtagBox = styled.div`
-  /* background-color: darkgray; */
   margin-top: -4px;
-  /* margin-bottom: 8px; */
   font-size: 16px;
 `;
 
 // 글쓰기 textarea
-export const Textarea = styled.textarea`
+export const Textarea = styled.textarea<{ isValidityContents: boolean }>`
   position: relative;
   width: 80%;
   height: 73px;
@@ -130,6 +121,12 @@ export const Textarea = styled.textarea`
 
   color: #24264e;
 
+  ${({ isValidityContents }) =>
+    isValidityContents &&
+    css`
+      outline: 2px solid #ff8f8f;
+    `}
+
   &::placeholder {
     font-weight: 400;
     font-size: 12px;
@@ -138,11 +135,9 @@ export const Textarea = styled.textarea`
   }
 
   overflow: auto;
-  /* transition: border-color 0.1s, background-color 0.1s; */
   resize: none;
-  /* border: 1px solid #3d3a3a; */
   &:focus {
-    outline: 2px solid #6a24ff;
+    outline: 2px solid #7d8bae;
   }
 
   background: #eef1f7;
@@ -151,7 +146,6 @@ export const Textarea = styled.textarea`
 
 export const PolaroidFolerIcon = styled.img`
   z-index: 1;
-  /* left: 189px; */
   margin-left: 185px;
   top: 300px;
   position: absolute;
@@ -170,8 +164,6 @@ export const BoxPhoto = styled.div`
   border: 1px solid #ffffff;
   border-radius: 4px;
 `;
-
-// export const BoxPhotoPolaroid = styled.div``;
 
 //섬네일이미지
 export const ThumnailPhotoChange = styled.img`

@@ -1,10 +1,10 @@
 import styled from 'styled-components';
-import { BsCalendar4 } from 'react-icons/bs';
 
 export const CategoryWrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: 868px;
+  min-height: 60vh;
   margin: auto;
   margin-bottom: 80px;
 `;
@@ -30,12 +30,9 @@ export const LikedListItem = styled.div`
   display: flex;
   flex-wrap: wrap;
   grid-gap: 70px 49.3px;
-  /* grid-template-rows: 49.3px; */
-
   margin-top: 46px;
 `;
 export const FilterArea = styled.div`
-  /* margin-bottom: -26px; */
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -69,10 +66,6 @@ export const FilterCalendarIcon = styled.img`
   width: 10px;
   height: 10px;
   object-fit: contain;
-
-  /* margin-left: 6px; */
-
-  /* color: #a6a6a6; */
 `;
 export const FilterSortWrapper = styled.div`
   display: flex;

@@ -8,6 +8,5 @@ export default CommonStyles;
 
 const CommonStyle = styled.div`
   max-width: 1024px;
-  /* max-width: 1440px; */
   margin: 0 auto;
 `;

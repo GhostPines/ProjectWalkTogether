@@ -5,7 +5,8 @@ export const ChattingBox = styled.div`
   width: 577px;
   height: 564px;
 
-  margin-top: 28px;
+  margin-top: 120px;
+
   border-radius: 4px;
 `;
 
@@ -38,7 +39,7 @@ export const ChattingNicknamePhoto = styled.div`
 `;
 
 export const ChattingNicknameto = styled.div`
-  width: 120px;
+  width: 140px;
   height: 20px;
   font-family: 'Poppins';
   font-style: normal;

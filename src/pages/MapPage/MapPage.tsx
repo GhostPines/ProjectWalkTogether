@@ -12,45 +12,11 @@ import { Post, usePosts } from '../../api/postsApi';
 
 const MapPage = () => {
   // firestore에서 데이터 'Post' 가져오기
-  const posts: Array<Post> = usePosts();
+
+  const { posts } = usePosts();
 
   // not a typo
   const cetegory = useRecoilValue(Cetegory);
-
-  // console.log('AllPost', AllPost)
-  // AllPost 는 전체 포스팅 리스트
-  // AllPost State 를 FilterBar 에서 사용하기 위해
-  // AllPost 를 Post 로 넘겨줌
-  // 예시
-  // const FilterBar = ({ setPostCategory, setShow }: any) => {
-  //   const Post = useRecoilValue(PostState)
-  //   console.log('Post', Post)
-  //   return (
-  //     <S.FilterBarContainer>
-  //       <S.FilterBarWrapper>
-  //         <S.FilterBarTitle>카테고리</S.FilterBarTitle>
-  // PostState 를 사용해서 Post 를 가져옴
-  //         <S.FilterBarCategory>
-  //           <Category
-  //             setPostCategory={setPostCategory}
-  //             setShow={setShow}
-  //             Post={Post}
-  //           />
-  //         </S.FilterBarCategory>
-
-  // console.log('Post', Post)
-
-  // FilterBar 에 넘겨줄 함수
-  // const setPostCategory = (value: string) => {
-  //   console.log('value', value)
-  //   if (value === '전체') {
-  //     setPosting(AllPost)
-  //   } else {
-  //     const filteredPost = AllPost.filter((post) => {
-  //       return post.Category_Posting === value
-  //     })
-  //     setPosting(filteredPost)
-  //   }
 
   return (
     <CommonStyles>

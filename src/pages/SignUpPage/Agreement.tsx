@@ -6,6 +6,7 @@ import { currentUserUid, isLoggedIn } from '../../Rocoil/Atom';
 import { useRecoilValue } from 'recoil';
 import AgreeModal from './AgreeModal';
 import React from 'react';
+import xxx from '../../assets/Agreement/xbutton.svg';
 
 const Agreement = () => {
   const [isOpenModal1, setOpenModal1] = useState<boolean>(false);
@@ -88,6 +89,8 @@ const Agreement = () => {
         <S.InputBox>
           <form onSubmit={agreenments}>
             <S.Title_head>약관동의</S.Title_head>
+
+            <S.Line />
             <S.join_box>
               <S.checkBox_check00>
                 <S.Agree01>
@@ -116,9 +119,7 @@ const Agreement = () => {
                   </S.ListLayout>
                   {isOpenModal1 && (
                     <AgreeModal onClickToggleModal={onClickToggleModalA}>
-                      <S.ModalTitle>
-                        <h1>모달 </h1>
-                      </S.ModalTitle>
+                      <S.ModalTitle>이용약관 동의</S.ModalTitle>
                       <S.ModalContents>
                         <p>
                           제 1 장 총칙 제 1 조 (목적) 본 약관은 통계청이
@@ -381,12 +382,11 @@ const Agreement = () => {
                         </p>
                       </S.ModalContents>
                       <S.CloseButton
+                        src={xxx}
                         onClick={() => {
                           setOpenModal1(!isOpenModal1);
                         }}
-                      >
-                        Close
-                      </S.CloseButton>
+                      ></S.CloseButton>
                     </AgreeModal>
                   )}
                   <S.DialogButton
@@ -414,9 +414,7 @@ const Agreement = () => {
                   </S.ListLayout>
                   {isOpenModal2 && (
                     <AgreeModal onClickToggleModal={onClickToggleModalB}>
-                      <S.ModalTitle>
-                        <h1>개인정보 수집 및 이용 동의 </h1>
-                      </S.ModalTitle>
+                      <S.ModalTitle>개인정보 수집 및 이용 동의</S.ModalTitle>
                       <S.ModalContents>
                         <p>
                           개인정보처리방침 [차례] 1. 총칙 2. 개인정보 수집에
@@ -633,15 +631,14 @@ const Agreement = () => {
                         </p>
                       </S.ModalContents>
                       <S.CloseButton
+                        src={xxx}
                         onClick={() => {
                           setIsOpenModal2(!isOpenModal2);
                         }}
-                      >
-                        Close
-                      </S.CloseButton>
+                      ></S.CloseButton>
                     </AgreeModal>
                   )}
-                  <S.DialogButton
+                  <S.DialogButton2
                     src={'/assets/Agreement.svg'}
                     onClick={onClickToggleModalB}
                   />
@@ -666,9 +663,7 @@ const Agreement = () => {
                   </S.ListLayout>
                   {isOpenModal3 && (
                     <AgreeModal onClickToggleModal={onClickToggleModalC}>
-                      <S.ModalTitle>
-                        <h1>모달 </h1>
-                      </S.ModalTitle>
+                      <S.ModalTitle>개인위치 정보처리 동의</S.ModalTitle>
                       <S.ModalContents>
                         <p>
                           제 1 조 (목적) 본 약관은 올래(이하 "회사")가 제공하는
@@ -846,15 +841,14 @@ const Agreement = () => {
                         </p>
                       </S.ModalContents>
                       <S.CloseButton
+                        src={xxx}
                         onClick={() => {
                           setIsOpenModal3(!isOpenModal3);
                         }}
-                      >
-                        Close
-                      </S.CloseButton>
+                      ></S.CloseButton>
                     </AgreeModal>
                   )}
-                  <S.DialogButton
+                  <S.DialogButton3
                     src={'/assets/Agreement.svg'}
                     onClick={onClickToggleModalC}
                   />
@@ -871,7 +865,7 @@ const Agreement = () => {
                 </S.Agree01>
               </S.checkBox_check03>
 
-              <S.List className='checkBox check03'>
+              <S.PostList className='checkBox check03'>
                 <S.Agree01>
                   <S.ListLayout>
                     <S.List>필수</S.List>
@@ -879,9 +873,7 @@ const Agreement = () => {
                   </S.ListLayout>
                   {isOpenModal4 && (
                     <AgreeModal onClickToggleModal={onClickToggleModalD}>
-                      <S.ModalTitle>
-                        <h1>서비스 이용약관 </h1>
-                      </S.ModalTitle>
+                      <S.ModalTitle>서비스 이용약관</S.ModalTitle>
                       <S.ModalContents>
                         <p>
                           제 1 장 총칙 제 1조 (목적) 본 약관은 서비스(이하
@@ -1228,15 +1220,14 @@ const Agreement = () => {
                         </p>
                       </S.ModalContents>
                       <S.CloseButton
+                        src={xxx}
                         onClick={() => {
                           setIsOpenModal4(!isOpenModal4);
                         }}
-                      >
-                        Close
-                      </S.CloseButton>
+                      ></S.CloseButton>
                     </AgreeModal>
                   )}
-                  <S.DialogButton
+                  <S.DialogButton4
                     src={'/assets/Agreement.svg'}
                     onClick={onClickToggleModalD}
                   />
@@ -1251,23 +1242,23 @@ const Agreement = () => {
                     />
                   </S.checkAllBtn>
                 </S.Agree01>
-              </S.List>
+              </S.PostList>
+              <S.AgreeBox>
+                <S.AgreeBtn
+                  type='submit'
+                  disabled={disabled}
+                  state={buttonColor}
+                  onClick={() => navigate('/signup')}
+                >
+                  {errorMessage}
+                </S.AgreeBtn>
+              </S.AgreeBox>
+              <S.Back>
+                <S.BackBtn onClick={() => navigate('/login')}>
+                  이전으로 돌아가기
+                </S.BackBtn>
+              </S.Back>
             </S.join_box>
-            <S.AgreeBox>
-              <S.AgreeBtn
-                type='submit'
-                disabled={disabled}
-                state={buttonColor}
-                onClick={() => navigate('/signup')}
-              >
-                {errorMessage}
-              </S.AgreeBtn>
-            </S.AgreeBox>
-            <S.Back>
-              <S.BackBtn onClick={() => navigate('/login')}>
-                이전으로 돌아가기
-              </S.BackBtn>
-            </S.Back>
           </form>
         </S.InputBox>
       </S.InputLayout>

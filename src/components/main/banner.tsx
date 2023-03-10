@@ -2,6 +2,7 @@ import Slider from 'react-slick';
 import styled from '@emotion/styled';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import * as S from './Banner.style';
 // import BannerImage from '../assets/SlideContainer/BannerSlide.png';
 import Banner from '../../assets/Mainpage/Bannerslides.svg';
 import Slide from '../../assets/Mainpage/slides.svg';
@@ -17,127 +18,31 @@ const settings = {
 
 const MainBanner = () => {
   return (
-    <SliderWrapper {...settings}>
-      <SlideWrapper>
-        <BannerContainer>
-          <BannerTextBox>
-            <BannerTitle>
+    <S.SliderWrapper {...settings}>
+      <S.SlideWrapper>
+        <S.BannerContainer>
+          <S.BannerTextBox>
+            <S.BannerTitle>
               일상에서 함께하는 <br />
-              <BannerSubTitle>나의 이야기</BannerSubTitle>
-            </BannerTitle>
-          </BannerTextBox>
-          <BannerFirstImg src={Banner} />
-        </BannerContainer>
-      </SlideWrapper>
-      <SlideWrapper>
-        <BannerContainer>
-          <BannerTextBox>
-            <BannerTitle>
+              <S.BannerSubTitle>나의 이야기</S.BannerSubTitle>
+            </S.BannerTitle>
+          </S.BannerTextBox>
+          <S.BannerFirstImg src={Banner} />
+        </S.BannerContainer>
+      </S.SlideWrapper>
+      <S.SlideWrapper>
+        <S.BannerContainer>
+          <S.BannerTextBox>
+            <S.BannerTitle>
               걸으면서 공유하는 <br />
-              <BannerSubTitle>나의 이야기</BannerSubTitle>
-            </BannerTitle>
-          </BannerTextBox>
-          <BannerSecondImg src={Slide} />
-        </BannerContainer>
-      </SlideWrapper>
-    </SliderWrapper>
+              <S.BannerSubTitle>나의 이야기</S.BannerSubTitle>
+            </S.BannerTitle>
+          </S.BannerTextBox>
+          <S.BannerSecondImg src={Slide} />
+        </S.BannerContainer>
+      </S.SlideWrapper>
+    </S.SliderWrapper>
   );
 };
 
 export default MainBanner;
-const SliderWrapper = styled(Slider)`
-  width: 100%;
-  height: 27rem;
-
-  .slick-slide {
-    position: relative;
-    width: 100%;
-    height: 27rem;
-  }
-  .slick-dots {
-    position: absolute;
-    bottom: 0;
-    color: #d7d7d7;
-    top: 280px;
-    right: 335px;
-    margin-right: 20px;
-
-    li {
-      width: 0.05rem;
-      height: 0.1rem;
-      margin: 0 0.45rem;
-    }
-    button {
-      margin: 5px;
-
-      width: 0.3rem;
-      height: 0.3rem;
-      border-radius: 50%;
-      background: '#CED3DB';
-      &::after {
-        background-color: #4d4d4d;
-      }
-    }
-    .slick-active {
-      button {
-        background: '#d7d3ff';
-        width: 0.3rem;
-        height: 0.3rem;
-      }
-    }
-  }
-`;
-const SlideWrapper = styled.div`
-  width: 100%;
-  height: 27rem;
-  overflow: hidden;
-`;
-const BannerContainer = styled.div`
-  width: 64rem;
-  height: 100%;
-  margin: 0 auto;
-  position: relative;
-`;
-const BannerTextBox = styled.div`
-  position: absolute;
-  width: 40.25rem;
-  height: 12.8125rem;
-  left: 9.125rem;
-  z-index: 13px;
-`;
-
-const BannerTitle = styled.div`
-  flex-wrap: wrap;
-  width: 50.25rem;
-  height: 4.25rem;
-  font-weight: 300;
-  font-size: 2.25rem;
-  line-height: 160%;
-  display: flex;
-  align-items: center;
-  color: '#333D4B';
-  margin-bottom: 1.5625rem;
-  z-index: 10;
-  position: relative;
-  top: 150px;
-`;
-const BannerSubTitle = styled.div`
-  width: 35.4375rem;
-  height: 4rem;
-  font-weight: 600;
-  font-size: 2.25rem;
-  line-height: 160%;
-  color: '#333D4B';
-`;
-const BannerFirstImg = styled.img`
-  position: absolute;
-  width: 64rem;
-  height: 27rem;
-
-  /* background-image: ; */
-`;
-const BannerSecondImg = styled.img`
-  position: absolute;
-  width: 64rem;
-  height: 27rem;
-`;

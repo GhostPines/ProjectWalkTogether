@@ -3,17 +3,19 @@ import styled from '@emotion/styled';
 export const Outer = styled.div`
   display: flex;
   justify-content: center;
-  margin-top: 64px;
+  align-items: center;
+
+  /* margin-top: 64px; */
   /* top: 65px;
   position: relative; */
+
+  min-height: calc(100vh - 242px);
 `;
 
 export const InnerBox = styled.div`
   width: 386px;
   height: 532px;
-  /* display: flex;
-  justify-content: center;
-  align-items: center; */
+
   background: #ffffff;
   box-shadow: 0px 0px 7px rgba(190, 197, 215, 0.8);
   border-radius: 4px;
@@ -21,7 +23,6 @@ export const InnerBox = styled.div`
 
 export const PasswordChangeTitleBox = styled.div`
   height: 112px;
-  /* background-color: antiquewhite; */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -38,7 +39,6 @@ export const PasswordChangeTitle = styled.div`
 
 export const PasswordChangeInputBox = styled.div`
   height: 82px;
-  /* border: 1px solid black; */
 `;
 
 export const CheckBtn = styled.div`
@@ -63,7 +63,7 @@ export const InputBox = styled.div`
   left: 40px;
 `;
 
-export const ValidityTest = styled.p`
+export const ValidityTest = styled.div`
   position: relative;
   left: 40px;
   top: 6px;
@@ -122,6 +122,7 @@ export const Input = styled.input`
   position: relative;
   left: 10px;
   top: 7px;
+  width: 250px;
 
   &&::placeholder {
     font-family: 'SUIT';
@@ -141,3 +142,7 @@ export const Reddot = styled.div`
   margin-right: 8px;
   margin-left: 8px;
 `;
+export const CheckIcon = styled.img`
+  cursor: pointer;
+`;
+export const CheckIconright = styled.img``;

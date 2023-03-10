@@ -6,24 +6,12 @@ export const MainPost = styled.div`
 `;
 
 export const Boxcontainer = styled.div`
-  /* justify-content: center; */
-  /* align-items: center; */
-  /* display: flex;
-  flex-direction: column; */
-  /* background-color: blue; */
-  /* width: 100%; */
-  /* width: 1024px; */
-  /* height: calc(100vh - 100px); */
   margin-bottom: 100px;
 `;
 
 //제출 버튼
 export const PostSubmitBox = styled.div`
   margin-top: -115px;
-  /* position: relative;
-  width: 100%;
-  height: 10%; */
-  /* background-color: aliceblue; */
 `;
 
 export const PostSubmitBtn = styled.button`

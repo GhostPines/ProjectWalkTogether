@@ -1,6 +1,4 @@
 import React, { useState } from 'react';
-
-import DropdownCategory from '../../../../components/DropdownCategoryForWritePage/DropdownCategory';
 import * as S from './Filter.style';
 import AntCalendarMap from '../Calendar/AntCalendarDate';
 import DropdownFilterCategoryForMapPage from '../../../../components/DropDownCategoryForMapPage/DropDownCategoryForMapPage';

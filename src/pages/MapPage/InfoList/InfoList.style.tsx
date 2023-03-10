@@ -161,5 +161,6 @@ export const NoResultTitle = styled.p`
   font-weight: 500;
   font-size: 16px;
   line-height: 45px;
+  margin-bottom: 100px;
   /* color: #7d8bae; */
 `;

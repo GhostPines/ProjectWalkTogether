@@ -1,7 +1,6 @@
 import React from 'react';
 import { CategorysList } from '../../utils/CategorysList';
 import * as S from './DropDownCategoryForMapPage.style';
-import { useNavigate } from 'react-router-dom';
 
 declare interface SetProps {
   setShow: React.Dispatch<React.SetStateAction<boolean>>;
@@ -16,28 +15,24 @@ const DropdownFilterCategoryForMapPage = ({
   setCategory,
   TextChange,
 }: SetProps) => {
+  // 카테고리 선택 시 이너 텍스트 바뀌는 부분
   const buttonClickHandler = (event: any) => {
-    //바로 적용이 안된다
-    // setTextChange(event.target.innerText);
-    // 아래부분처럼 해결함
     setTextChange(event.target.innerText);
   };
 
-  const navigate = useNavigate();
-
+  // 선택한 카테고리 이름으로 바뀌면서 모달 닫는 부분
   const confirmButtonClickHandler = (name: string) => {
     setCategory(name);
     setShow(false);
   };
 
-  // console.log(CategorysList);
   return (
     <S.DropdownBox>
       <S.DropdownConatainer>
         <S.DropdownWapper>
           {CategorysList.map((data) => {
             return (
-              <S.CategoryBtn onClick={buttonClickHandler}>
+              <S.CategoryBtn onClick={buttonClickHandler} key={data.name}>
                 {data.name}
               </S.CategoryBtn>
             );
@@ -45,7 +40,6 @@ const DropdownFilterCategoryForMapPage = ({
         </S.DropdownWapper>
 
         <S.CategoryConfirmBtn
-          // 24~25
           onClick={() => confirmButtonClickHandler(TextChange)}
         >
           선택 완료

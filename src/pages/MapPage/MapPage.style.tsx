@@ -8,8 +8,7 @@ export const MapPageContainer = styled.span`
   margin-top: 20px;
 
   max-width: 1024px;
-  @media screen {
-  }
+  margin-bottom: 80px;
 `;
 
 export const MapPageHeader = styled.span`

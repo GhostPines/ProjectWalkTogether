@@ -142,15 +142,15 @@ export const UserModifyBtnIcon = styled.img`
 `;
 export const MypageMoreBtn = styled.img`
   width: 10px;
-  height: 25px;
-  margin-top: 8px;
+  height: 15px;
+  margin-top: 10px;
   position: absolute;
   margin-left: 675px;
   object-fit: contain;
 `;
 export const MyPageButton = styled.div``;
 export const ChangeNickName = styled.input`
-  width: 13%;
+  width: 20%;
   height: 44px;
   background: #eef1f7;
   border-radius: 4px;
@@ -162,7 +162,7 @@ export const ChangeNickName = styled.input`
   margin-bottom: 4px;
 
   &:focus {
-    outline: 2px solid #6a24ff;
+    outline: 2px solid #7d8bae;
   }
 `;
 export const ChangeContent = styled.textarea`
@@ -182,7 +182,7 @@ export const ChangeContent = styled.textarea`
   resize: none;
   /* border: 1px solid #3d3a3a; */
   &:focus {
-    outline: 2px solid #6a24ff;
+    outline: 2px solid #7d8bae;
   }
 
   background: #eef1f7;

@@ -1,12 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import { useState } from 'react';
 import styled from 'styled-components';
-import { FiChevronLeft } from 'react-icons/fi';
-import { HiOutlinePlus } from 'react-icons/hi';
 import CommonStyles from './../../styles/CommonStyles';
 import ChattingList from './ChattingList/ChattingList';
 import ChattingBox from './ChattingBox/ChattingBox';
-
-import { useNavigate } from 'react-router-dom';
 
 const ChattingPage = () => {
   const [tochattingBoxUid, SetTochattingBoxUid] = useState<string>('');

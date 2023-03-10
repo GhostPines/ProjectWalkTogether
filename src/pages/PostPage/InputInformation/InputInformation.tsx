@@ -1,5 +1,4 @@
 import * as S from './InputInformation.style';
-// import MapContainer from '../../MapPage/Map/map';
 import { myLocation, selectedAddress } from '../../../Rocoil/Atom';
 import {
   Map,
@@ -7,7 +6,7 @@ import {
   ZoomControl,
   MapTypeControl,
 } from 'react-kakao-maps-sdk';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import React from 'react';
 import AntCalendar from '../Hooks/Calendar/AntCalendarDate';
 import AntCalendarTime from '../Hooks/Calendar/AntCalendarTime';
@@ -39,6 +38,9 @@ function InputInformation() {
   const [address, setAddress] = useRecoilState(selectedAddress);
   const geocoder = new kakao.maps.services.Geocoder();
 
+  // 인포윈도우 Open 여부를 저장하는 state 입니다.
+  const [isOpen, setIsOpen] = useState({ lat: '', lng: '', isopen: false });
+
   // 사용자 위치를 가져오기 위한 useEffect
   React.useEffect(() => {
     if (navigator.geolocation) {
@@ -59,6 +61,30 @@ function InputInformation() {
       alert('현재 위치를 표시할 수 없어요');
     }
   }, []);
+
+  // 커스터마이징 된 지도 컨트롤러
+  const mapRef = useRef(null);
+
+  // 줌인
+  const zoomIn = () => {
+    const mapControl = mapRef.current;
+    mapControl.setLevel(map.getLevel() - 1);
+  };
+  // 줌아웃
+  const zoomOut = () => {
+    const mapControl = mapRef.current;
+    mapControl.setLevel(map.getLevel() + 1);
+  };
+  // 내위치 찾기
+  const findMyLocation = () => {
+    const mapControl = mapRef.current;
+    mapControl.panTo(new kakao.maps.LatLng(myLoca.lat, myLoca.lng));
+  };
+  // 카카오 길찾기 링크로 이동 (내 위치 -> useState Postion에 저장된 위치)
+  const linkToKaKaoNavi = () => {
+    const url = `https://map.kakao.com/link/search/${address}`;
+    window.open(url);
+  };
 
   // 키워드로 장소검색하기 위한 useEffect
   useEffect(() => {
@@ -108,6 +134,7 @@ function InputInformation() {
   convertAddress();
   // console.log('position:', position);
   // console.log(search);
+  // db의 Post 컬렉션에서 가져온 데이터를 MapMarker에 넣어주기 위한 배열 생성
 
   return (
     <S.MapNInputBox>
@@ -123,30 +150,62 @@ function InputInformation() {
           <Map
             center={myLoca}
             style={{ width: '100%', height: '100%' }}
-            level={3}
-            onClick={(_t, mouseEvent) =>
-              setPosition({
-                lat: mouseEvent.latLng.getLat(),
-                lng: mouseEvent.latLng.getLng(),
-              })
-            }
+            level={4}
             onCreate={setMap}
+            ref={mapRef}
+            onClick={(_t, mouseEvent) => {
+              // if setIsOpen is true, set it to false
+              // else call setPosition
+              if (isOpen.isopen) {
+                setIsOpen({
+                  lat: '',
+                  lng: '',
+                  isopen: false,
+                });
+              } else
+                setPosition({
+                  lat: mouseEvent.latLng.getLat(),
+                  lng: mouseEvent.latLng.getLng(),
+                });
+            }}
           >
-            <ZoomControl position={kakao.maps.ControlPosition.TOPRIGHT} />
-            <MapTypeControl position={kakao.maps.ControlPosition.TOPRIGHT} />
             {position && <MapMarker position={position} />}
 
-            {/* {markers.map((marker) => (
-              <MapMarker
-                key={`marker-${marker.content}-${marker.position.lat},${marker.position.lng}`}
-                position={marker.position}
-                onClick={() => setInfo(marker)}
-              >
-                {info && info.content === marker.content && (
-                  <div style={{ color: '#000' }}>{marker.content}</div>
-                )}
-              </MapMarker>
-            ))} */}
+            <S.CustomZoomControl className='custom_zoomcontrol'>
+              <S.ZoomInButton onClick={zoomIn}>
+                {/* <AiOutlinePlus size={40} /> */}
+                <S.ZoomInSVG
+                  src={
+                    require('../../../assets/MapPageIcon/PlusButton.svg')
+                      .default
+                  }
+                />
+              </S.ZoomInButton>
+              <S.ZoomOutButton onClick={zoomOut}>
+                <S.ZoomOutSVG
+                  src={
+                    require('../../../assets/MapPageIcon/MinusButton.svg')
+                      .default
+                  }
+                />
+              </S.ZoomOutButton>
+              <S.FindMyLocationButton onClick={findMyLocation}>
+                <S.FindMyLocationSVG
+                  src={
+                    require('../../../assets/MapPageIcon/LocationButton.svg')
+                      .default
+                  }
+                />
+              </S.FindMyLocationButton>
+              <S.LinkToKaKaoNavibutton onClick={linkToKaKaoNavi}>
+                <S.LinkToKaKaoNaviSVG
+                  src={
+                    require('../../../assets/MapPageIcon/NaviButton.svg')
+                      .default
+                  }
+                />
+              </S.LinkToKaKaoNavibutton>
+            </S.CustomZoomControl>
           </Map>
           {/* {position && (
             <p>

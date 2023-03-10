@@ -32,8 +32,6 @@ const DropBox = ({ setShowBox, id, getPostings, setComplete }: DropProps) => {
 
   // 산책완료 변경
   const [posting, setPosting] = useState('posting');
-  // console.log(getPostings.Category_Posting);
-  // console.log(getPostings);
 
   //삭제 버튼
   const DeletePostHandler = async (id: any) => {
@@ -48,7 +46,7 @@ const DropBox = ({ setShowBox, id, getPostings, setComplete }: DropProps) => {
             callback: async () =>
               await deleteDoc(doc(dbService, 'Post', id))
                 .then(() => {
-                  navigate(`/category/${getPostings.Category_Posting}`);
+                  navigate(`/`);
                 })
                 //  then과 catch 세트이다.
                 .catch((error) => {
@@ -122,7 +120,7 @@ const DropBox = ({ setShowBox, id, getPostings, setComplete }: DropProps) => {
             },
           },
         ],
-        MessageWindowLogoType.Perplex
+        MessageWindowLogoType.Congratulation
       ),
       setState
     );

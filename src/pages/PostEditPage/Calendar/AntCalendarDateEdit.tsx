@@ -30,14 +30,10 @@ const AntCalendarEdit: React.FC = () => {
   // console.log(day);
   const PreviousDate = `${year}/${month}/${day}`;
 
-  // console.log(PreviousDate);
-  // console.log(dayjs(PreviousDate));
-
   // 달력 클릭한 값이 setReserveEditDate에 저장
   const onChange: DatePickerProps['onChange'] = (date, dateString) => {
     setReserveEditDate(date);
   };
-  // console.log('달력/날짜~~~~:', reserveEditDate);
 
   // 수정하기 전의 초기값이 빈 문자열을 기존의 값으로 바꿔주는 부분
   useEffect(() => {
@@ -53,7 +49,6 @@ const AntCalendarEdit: React.FC = () => {
           onChange={onChange}
           inputReadOnly={true}
           format={format}
-          // placeholder='날짜를 입력해주세요.'
           defaultValue={dayjs(PreviousDate)}
           style={{ width: 250, height: 40, fontSize: 20 }}
           allowClear={false}

@@ -36,20 +36,20 @@ const ModalContainer = styled.div`
 `;
 
 const DialogBox = styled.dialog`
-  width: 800px;
-  height: 400px;
+  width: 500px;
+  height: 550px;
   display: flex;
   flex-direction: column;
   align-items: center;
   border: none;
-  border-radius: 3px;
+  border-radius: 10px;
   box-shadow: 0 0 30px rgba(30, 30, 30, 0.185);
   box-sizing: border-box;
   background-color: white;
   z-index: 10000;
-  top: calc(50% - 200px);
-  left: calc(50% - 400px);
-  position: absolute;
+  top: calc(50% - 250px);
+  left: calc(50% - 250px);
+
   position: fixed;
 `;
 

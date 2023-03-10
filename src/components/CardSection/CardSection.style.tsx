@@ -3,22 +3,15 @@ import styled from 'styled-components';
 export const CardBox = styled.a`
   width: 180px;
   height: 207px;
-  /* margin-bottom: 70px; */
 `;
 export const CardSectionWrapper = styled.div`
   cursor: pointer;
-  /* width: 180px;
-  height: 207px; */
 `;
 export const ListItemWrapper = styled.div`
-  /* position: relative; */
-  /* overflow: hidden; */
   width: 100%;
   height: 96px;
 `;
 export const ListItemThumnail = styled.img`
-  /* width: 100%;
-  height: 100%; */
   width: 100%;
   object-fit: cover;
   border-radius: 4px;
@@ -26,7 +19,7 @@ export const ListItemThumnail = styled.img`
 export const ListItemThumnailTitle = styled.p`
   width: 165px;
   margin: 8px 0px 0px 0px;
-  /* overflow: hidden; */
+
   object-fit: contain;
   font-size: 16px;
   font-family: 'SUITERegular';
@@ -108,4 +101,11 @@ export const ListItemHour = styled.span`
 export const AddressDateHourWrapper = styled.div`
   font-size: 16px;
   line-height: 100%;
+`;
+export const FooterWrapper = styled.div`
+  /* flex: 1; */
+  /* height: auto; */
+  /* min-height: calc(100% - 190px); */
+  /* padding-bottom: 190px; */
+  /* min-height: 100vh; */
 `;

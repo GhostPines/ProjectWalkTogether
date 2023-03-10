@@ -2,7 +2,6 @@ import React from 'react';
 import type { DatePickerProps } from 'antd';
 import { DatePicker, Space } from 'antd';
 import { useRecoilState } from 'recoil';
-// import { ReserveDate } from '../Rocoil/Atom';
 import 'moment/locale/ko';
 import locale from 'antd/lib/locale/ko_KR';
 import { ConfigProvider } from 'antd';
@@ -18,7 +17,6 @@ const AntCalendarMap: React.FC = () => {
     useRecoilState<any>(FilterSelectedDateForMapPage);
 
   const onChange: DatePickerProps['onChange'] = (date, dateString) => {
-    // console.log(date, dateString);
     setselectedDateForMapPage(date);
     // console.log('달력/날짜:', reserveDate);
   };
@@ -64,8 +62,6 @@ const AntCalendarMap: React.FC = () => {
 
   // SelectedDate 를 dateType1ForMapPage 에 넣어준다.
   dateType1[1](SelectedDate);
-
-  // console.log(dateType1);
 
   return (
     <ConfigProvider locale={locale}>

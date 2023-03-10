@@ -6,18 +6,11 @@ export const CardSectionWrapper = styled.a`
   cursor: pointer;
   width: 100%;
   height: 100%;
-  /* width: 180px;
-  min-height: 207px; */
 `;
 export const ListItemWrapper = styled.div`
   position: relative;
-  /* overflow: hidden; */
   width: 200px;
   height: 130px;
-  /* height: 32.8888vw;
-  min-height: 92.44px; */
-  /* width: 100%;
-  height: 100%; */
 `;
 export const ListItemThumnail = styled.img`
   position: absolute;
@@ -27,11 +20,8 @@ export const ListItemThumnail = styled.img`
   border-radius: 4px;
 `;
 export const ListItemThumnailTitle = styled.p`
-  /* height: 48px; */
   width: 200px;
   margin: 8px 0px 0px 0px;
-  /* overflow: hidden;
-  text-overflow: ellipsis; */
   font-size: 16px;
   font-weight: 600;
   line-height: 19.97px;

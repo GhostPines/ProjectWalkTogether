@@ -1,14 +1,10 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useState } from 'react';
 import * as S from './MainPostEdit.style';
 import { useRecoilState } from 'recoil';
 import { TitleInput, DescriptionInput } from '../../../Rocoil/Atom';
 import { Bannerupload, ThumbnailUpload } from '../../../Rocoil/Atom';
-import { ref, uploadBytes, listAll, getDownloadURL } from 'firebase/storage';
 import DropdownCategory from '../../../components/DropdownCategoryForWritePage/DropdownCategory';
-import { useParams } from 'react-router-dom';
-import { doc, getDoc } from '@firebase/firestore';
-import { dbService } from './../../../common/firebase';
-import Tag from './../../../components/Tag';
+import Tag from '../../../components/Tag/Tag';
 import useDetectClose from './../../../hooks/useDetectClose';
 
 interface SetProps {
@@ -18,6 +14,10 @@ interface SetProps {
   bannerimg: string;
   setHasEditedBanner: React.Dispatch<React.SetStateAction<boolean>>;
   setHasEditedThumbnail: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsValidityTitle: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsValidityContents: React.Dispatch<React.SetStateAction<boolean>>;
+  isValidityTitle: boolean;
+  isValidityContents: boolean;
 }
 function MainPostEdit({
   setPostCategory,
@@ -26,13 +26,16 @@ function MainPostEdit({
   bannerimg,
   setHasEditedBanner,
   setHasEditedThumbnail,
+  isValidityTitle,
+  isValidityContents,
+  setIsValidityTitle,
+  setIsValidityContents,
 }: SetProps) {
   // 모달 외부 클릭 시 닫기 customhook
   const [myPageIsOpen, myPageRef, myPageHandler] = useDetectClose(false);
   const [postTitle, setPostTitle] = useRecoilState(TitleInput); //글 제목
   const [postTag, setPostTag] = useState(''); //해쉬태그
   const [postdescription, SetDescription] = useRecoilState(DescriptionInput); //글 내용
-  // const [postCategory, setPostCategory] = useState(''); //카테고리
   const [photoupload, setPhotoupload] = useRecoilState(ThumbnailUpload); // Handles input change event and updates state
   const [bannerupload, setBanneruploadupload] = useRecoilState(Bannerupload);
   const [thumbnail, setThumbnail] = useState<any>(thumbnailimg);
@@ -152,12 +155,14 @@ function MainPostEdit({
             onChange={handleChange}
             value={postTitle}
             placeholder='제목을 입력해 주세요'
+            isValidityTitle={isValidityTitle}
           />
           <Tag tagItem='' />
           <S.Textarea
             onChange={handleChangeText}
             value={postdescription}
-            placeholder='당신의 이야기를 적어주세요'
+            placeholder='당신의 이야기를 160글자 내로 적어주세요'
+            isValidityContents={isValidityContents}
           ></S.Textarea>
         </S.BoxMain>
       </S.Boxcontents>

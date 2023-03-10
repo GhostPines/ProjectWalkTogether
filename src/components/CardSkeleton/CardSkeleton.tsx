@@ -1,5 +1,3 @@
-import React from 'react';
-import { isHtmlElement } from 'react-router-dom/dist/dom';
 import * as S from './CardSkeleton.style';
 import CardSkeletonMap from './CardSkeletonMap';
 

@@ -23,6 +23,7 @@
     "@types/react-router-dom": "^5.3.3",
     "@types/react-slick": "^0.23.10",
     "antd": "^5.2.1",
+    "browser-image-compression": "^2.0.2",
     "cors": "^2.8.5",
     "create-react-app": "^5.0.1",
     "date-fns": "^2.29.3",

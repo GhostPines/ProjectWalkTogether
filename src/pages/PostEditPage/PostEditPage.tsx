@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import CommonStyles from './../../styles/CommonStyles';
 import * as S from './PostEditPage.style';
 import { useRecoilValue, useRecoilState, useSetRecoilState } from 'recoil';
@@ -7,8 +7,6 @@ import {
   selectedAddress,
   Bannerupload,
   ThumbnailUpload,
-  ReserveDate,
-  Time,
   TitleInput,
   DescriptionInput,
   ReserveEditDate,
@@ -20,17 +18,7 @@ import { uuidv4 } from '@firebase/util';
 import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { storage, dbService } from './../../common/firebase';
-import {
-  addDoc,
-  collection,
-  doc,
-  updateDoc,
-  onSnapshot,
-  getDoc,
-  query,
-  where,
-  orderBy,
-} from 'firebase/firestore';
+import { doc, updateDoc } from 'firebase/firestore';
 import MainPostEdit from './MainPostEdit/MainPostEdit';
 import InputInformationEdit from './InputInformationEdit/InputInformationEdit';
 import MessageWindow, {
@@ -38,7 +26,7 @@ import MessageWindow, {
   MessageWindowProperties,
   messageWindowPropertiesAtom,
 } from '../../messagewindow/MessageWindow';
-import useDetectClose from '../../hooks/useDetectClose';
+import Loader from '../../components/Loader/Loader';
 
 const PostEditPage = () => {
   // 해당 글 id, db 정보
@@ -92,6 +80,15 @@ const PostEditPage = () => {
 
   //약속 시간
   const [meetEditDate, setMeetEditDate] = useRecoilState(ReserveEditDate);
+
+  // 로딩일 경우
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  //내용 유효성검사
+  const [isValidityContents, setIsValidityContents] = useState<boolean>(false);
+
+  //타이틀 유효성검사
+  const [isValidityTitle, setIsValidityTitle] = useState<boolean>(false);
 
   const date = (y: number, m: number, d: number) => {
     const D = new Date(y, m, d);
@@ -159,25 +156,6 @@ const PostEditPage = () => {
 
   let timestring = `${time.year}/${time.month}/${time.date} ${time.hours}:${time.minutes}`;
 
-  // const GetPreviousMeetDate = () => {
-  //   meetEditDate.length < 14
-  //     ? setMeetEditDate(state.RsvDate_Posting)
-  //     : setMeetEditDate(RsvDate_Posting);
-  // };
-  // // console.log(state.RsvDate_Posting);
-  // const GetPreviousMeetTime = () => {
-  //   meetTimeEdit.length < 9
-  //     ? setMeetTimeEdit(state.RsvHour_Posting)
-  //     : setMeetTimeEdit(RsvHour_Posting);
-  // };
-
-  // // NaN/undefined가 뜬 이유다.
-  // console.log(state.RsvHour_Posting);
-  // useEffect(() => {
-  //   GetPreviousMeetDate();
-  //   GetPreviousMeetTime();
-  // }, [meetEditDate, meetTimeEdit]);
-
   //수정
   useEffect(() => {
     if (state) {
@@ -186,8 +164,6 @@ const PostEditPage = () => {
       setThumbnail(state.ThumbnailURL_Posting);
       setBanner(state.BannerURL_Posting);
       setTag(state.Hashtag_Posting);
-      // setMeetEditDate(state.RsvDate_Posting);
-      // setMeetTimeEdit(state.RsvHour_Posting);
     }
   }, [state]);
 
@@ -202,14 +178,6 @@ const PostEditPage = () => {
             console.log('배너url', typeof bannerUrl);
 
             try {
-              // const updateBanner: { BannerURL_Posting } = {
-              //   BannerURL_Posting: bannerUrl,
-              // };
-
-              // const updateThumbnail: { ThumbnailURL_Posting } = {
-              //   ThumbnailURL_Posting: thumbnailUrl,
-              // };
-
               const postRef = doc(dbService, 'Post', id);
               updateDoc(postRef, {
                 Description_Posting: Description,
@@ -249,12 +217,12 @@ const PostEditPage = () => {
 
   const handleSubmit = async (e: any) => {
     if (Title.length < 1 || Title.length > 20) {
-      alert('타이틀은 1자 이상 20자 미만으로 작성해 주세요');
+      setIsValidityTitle(true);
       return;
     }
 
-    if (Description.length < 1 || Description.length > 200) {
-      alert('내용은 1자 이상 200자 미만으로 작성해 주세요');
+    if (Description.length < 1 || Description.length > 160) {
+      setIsValidityContents(true);
       return;
     }
 
@@ -278,21 +246,23 @@ const PostEditPage = () => {
 
     const bannerRef = ref(storage, `test/${PostingID_Posting}/banner`);
 
-    MessageWindow.showWindow(
-      new MessageWindowProperties(
-        true,
-        '업로드 중입니다. 조금만 기다려주세요!',
-        '',
-        [],
-        MessageWindowLogoType.CryingFace
-      ),
-      setState
-    );
+    // MessageWindow.showWindow(
+    //   new MessageWindowProperties(
+    //     true,
+    //     '업로드 중입니다. 조금만 기다려주세요!',
+    //     '',
+    //     [],
+    //     MessageWindowLogoType.CryingFace
+    //   ),
+    //   setState
+    // );
+    setIsLoading(true);
 
     await uploadBytes(bannerRef, banner);
     geturl(() => {
       // MessageWindow 닫는 코드
       MessageWindow.showWindow(new MessageWindowProperties(), setState);
+      setIsLoading(false);
       navigate(`/category/${postCategory}`);
     });
   };
@@ -307,12 +277,17 @@ const PostEditPage = () => {
           bannerimg={state.BannerURL_Posting}
           setHasEditedBanner={setHasEditedBanner}
           setHasEditedThumbnail={setHasEditedThumbnail}
+          isValidityTitle={isValidityTitle}
+          isValidityContents={isValidityContents}
+          setIsValidityContents={setIsValidityContents}
+          setIsValidityTitle={setIsValidityTitle}
         />
         <InputInformationEdit
           addressEdit={state.Address_Posting}
           lat={state.MeetLatitude_Posting}
           lng={state.MeetLongitude_Posting}
         />
+        {isLoading && <Loader />}
         <S.PostSubmitBox>
           <S.PostSubmitBtn onClick={handleSubmit}>수정하기</S.PostSubmitBtn>
         </S.PostSubmitBox>

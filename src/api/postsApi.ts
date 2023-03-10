@@ -65,7 +65,7 @@ export function usePosts() {
     return newPosts;
   }
 
-  const { data } = useQuery({
+  const { data, refetch } = useQuery({
     queryKey: ['posts'],
     queryFn: fetchPosts,
     //   TIME: m *  s *   ms
@@ -75,5 +75,5 @@ export function usePosts() {
 
   const posts: Array<Post> = data || [];
 
-  return posts;
+  return { posts, refetch };
 }

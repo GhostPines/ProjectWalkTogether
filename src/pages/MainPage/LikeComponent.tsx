@@ -9,7 +9,8 @@ const LikesComponent = () => {
   // skeleton UI Loading
   const [isloading, setIsLoading] = useState<boolean>(true);
 
-  let postList: Array<Post> = [...usePosts()].sort(
+  const { posts, refetch } = usePosts();
+  let postList: Array<Post> = [...posts].sort(
     (a, b) => b.LikedUsers.length - a.LikedUsers.length
   );
 
@@ -30,7 +31,9 @@ const LikesComponent = () => {
             .slice(0, 8)
             .sort((a, b) => b.LikedUsers.length - a.LikedUsers.length)
             .map((post: any) => {
-              return <CardSection key={post.id} post={post} />;
+              return (
+                <CardSection key={post.id} post={post} refetch={refetch} />
+              );
             })}
         </S.LikedListItem>
       )}
